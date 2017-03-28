@@ -38,7 +38,7 @@ body:
 <li><strong>Enforced lifecycle (and memory safety)</strong>
 <ul>
 <li>Automatically load data on route change</li>
-<li>Automatically clean up stale data on route chane</li>
+<li>Automatically clean up stale data on route change</li>
 <li>Automatically set up event listeners on route change (e.g. listener on the WebSocket)</li>
 <li>Automatically tear down event listeners on route change</li>
 </ul>

@@ -1,6 +1,6 @@
 _model: api-annotated
 ---
-title: API / Keechma 0.1.0-SNAPSHOT
+title: API / Keechma 0.2.0-SNAPSHOT
 ---
 body:
 
@@ -45,12 +45,12 @@ body:
         </ul>
     </div>
     <div class="namespace-index" id="content">
-        <h1><span class="project-title"><span class="project-name">Keechma</span> <span class="project-version">0.1.0-SNAPSHOT</span></span></h1>
+        <h1><span class="project-title"><span class="project-name">Keechma</span> <span class="project-version">0.2.0-SNAPSHOT</span></span></h1>
         <div class="doc">
             <p>Frontend micro framework for ClojureScript and Reagent.</p>
         </div>
         <h2>Installation</h2>
-        <p>To install, add the following dependency to your project or build file:</p><div class="pre-deps-wrap"><pre class="deps">[keechma &quot;0.1.0-SNAPSHOT&quot;]</pre></div>
+        <p>To install, add the following dependency to your project or build file:</p><div class="pre-deps-wrap"><pre class="deps">[keechma &quot;0.2.0-SNAPSHOT&quot;]</pre></div>
         <h2>Namespaces</h2>
         <div class="namespace">
             <h3><a href="keechma_app-state">keechma.app-state</a></h3>

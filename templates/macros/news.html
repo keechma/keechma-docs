@@ -39,9 +39,13 @@
           </h2>
           <div itemprop="articleBody">
             {{ post.body }}
+            {% if from_index %}
+            {% else %}
+              {{ post.body2 }}
+            {% endif %}
           </div>
         </div>
-        
+
       </div>
     </div>
   </div>

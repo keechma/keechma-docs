@@ -27,7 +27,7 @@ header {
         width: 300px;
         display: block;
         margin-left: -6px;
-        
+
     }
     .nav-main {
         padding-top: 6px;
@@ -420,4 +420,20 @@ tr.with-content.no-bottom-border {
         border-top: 3px solid #e0e0e0;
         padding-top: 40px;
     }
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }

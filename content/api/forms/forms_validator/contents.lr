@@ -83,12 +83,26 @@ body:
             <div class="usage"><code>(validator validators)</code></div>
             <div class="doc">
                 <div class="markdown">
-                    <p>Creates a form validator. Validator is a map where keys represent the path to data that will be validated and the value is a vector of validator definitions.</p>
-                    <p>Validator definitions are tuples where the first element is a validator name and the second one is the validator function. Validator function receives the value for the key path and returns a boolean. <code>true</code> if the data
-                        is valid and <code>false</code> if it&#x2019;s invalid.</p>
+                    <p>Creates a form validator. Validator is a map where keys represent the path to data that will be validated and the value is a vector of attribute validators.</p>
+                    <p>Attribute validators are tuples where the first element is the attribute validator name and the second one is the validation function. Validation function receives the value for the key path and returns a boolean. It should return
+                        <code>true</code> if the attribute is valid and <code>false</code> if it&#x2019;s invalid. Attribute validators receive <code>full-data</code> (whole object that is being validated) and the attribute <code>path</code> as the second and
+                        third arguments.</p>
+                    <p><strong>Example attribute validator</strong></p>
+                    <pre><code class="clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> not-empty [<span class="hljs-symbol">:not-empty</span> <span class="hljs-comment">;; Name of the attribute validator</span>
+                (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [value _ _]
+                  (<span class="hljs-name"><span class="hljs-builtin-name">not</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">empty?</span></span> v)))]
+</code></pre>
+                    <p>If you want to build more complex validators <code>full-data</code> and <code>path</code> arguments allow you to do so. For instance, let&#x2019;s say we&#x2019;re writing the validator that can check if the email confirmation is the same as the
+                        email:</p>
+                    <pre><code class="clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> email-confirmation [<span class="hljs-symbol">:confirmed-email?</span>
+                         (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [value full-data path]
+                           (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> [email (<span class="hljs-symbol">:email</span> full-data)
+                                 email-confirmation (<span class="hljs-symbol">:email-confirmation</span> full-data)]
+                             (<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> email email-confirmation)))]
+</code></pre>
                     <p><code>validator</code> returns the function that accepts the data and returns the map of validation errors.</p>
                     <p><strong>Simple example:</strong></p>
-                    <pre><code class="clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> not-empty [<span class="hljs-symbol">:not-empty</span> (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [v] (<span class="hljs-name"><span class="hljs-builtin-name">not</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">empty?</span></span> v)))])
+                    <pre><code class="clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> not-empty [<span class="hljs-symbol">:not-empty</span> (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [v _ _] (<span class="hljs-name"><span class="hljs-builtin-name">not</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">empty?</span></span> v)))])
 (<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> form-validator-1 (<span class="hljs-name">validator</span> {<span class="hljs-symbol">:username</span> [not-empty]}))
 
 (<span class="hljs-name">form-validator-1</span> {<span class="hljs-symbol">:username</span> <span class="hljs-string">&quot;&quot;</span>})

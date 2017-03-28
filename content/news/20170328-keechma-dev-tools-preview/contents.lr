@@ -1,0 +1,44 @@
+title: Keechma Developer Tools Preview
+---
+_slug: keechma-dev-tools-preview
+---
+pub_date: 2017-03-28
+---
+author: Mihael Konjević
+---
+gravatar: 9976060bfb26220dd042340394d06b31
+---
+twitter_handle: mihaelkonjevic
+---
+body:
+
+Keechma is getting close to v1 release. Most of the work is done, what's left is documentation update and the release of the developer tools.
+
+Here's a short screencast that shows off some of the features built into the dev tools. If you're missing some context around the example application make sure to check the [walkthrough](/guides/application-walkthrough/).
+
+<div class="video-container"><iframe src="https://www.youtube.com/embed/efPglLfDcDc" frameborder="0" allowfullscreen></iframe></div>
+
+---
+body2:
+We're working hard on the v1 release, and if you want to keep track of Keechma news and releases, subscribe to our newsletter:
+
+<!-- Begin MailChimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="//retroaktive.us8.list-manage.com/subscribe/post?u=0fd70cfbc61d34de3b89963e9&amp;id=d4250786aa" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to Keechma mailing list</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_0fd70cfbc61d34de3b89963e9_d4250786aa" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
