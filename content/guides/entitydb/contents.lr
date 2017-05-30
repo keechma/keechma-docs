@@ -7,37 +7,26 @@ title: EntityDB
 body:
 
 
-<p>EntityDB is a library that handles storage of any kind of entities in your application. Entity is anything that is &quot;identifiable&quot;. Usually the <code>id</code> attribute is used, but you can use anything that makes sense for your application.</p>
-<h2>Why do you need EntityDB?</h2>
-<p>EntityDB solves two problems for you:</p>
+<p>The big idea behind EntityDB is consistency. Since it ensures that there is only one instance of each entity in your application, consistency is inherent. This enables you to write simpler code and avoid a whole class of bugs related to data synchronization. Gone too is the requirement to model your application state in a quickly-unmanageable tree. EntityDB provides:</p>
 <ol>
-<li>It allows you to store all entities in a central location</li>
-<li>It ensures data consistency
-<ul>
-<li>If you have the same entity rendered in multiple places (for instance in a master - detail layout) - changes to entity in one place will update the other</li>
-<li>If you have an entity inside some collection, removing it from the EntityDB store will remove it from the collection too</li>
-</ul>
-</li>
+<li><strong>Data Consistency</strong> &#x2014; collections of entities are kept up-to-date: remove an entity from EntityDB and it is removed from any collections that contain it</li>
+<li><strong>Rendering Consistency</strong> &#x2014; any change to an entity is reflected everywhere it is rendered (e.g. a master-detail layout)</li>
+<li><strong>Simplicity</strong> &#x2014; all entities are in a central location</li>
 </ol>
 <h2>How does it work?</h2>
-<p>EntityDB functions are implemented in a pure functional way, and they operate on the Clojure <code>map</code>.</p>
-<p>EntityDB supports two ways to store the items:</p>
+<p>Implemented as a separate library, EntityDB tracks all of your application&apos;s entities. An entity is anything that is &quot;identifiable&quot;. While the <code>:id</code> attribute is normally used for this purpose, your application can identify entities in whatever way makes sense.</p>
+<p>Operating on a Clojure <code>map</code>, access to EntityDB is purely functional and supports two types of structures:</p>
 <ol>
-<li>In collections</li>
-<li>In named item slots</li>
+<li><strong>Collections</strong> &#x2014; lists of entities stored and retrieved by the collection&apos;s name</li>
+<li><strong>Named entity slots</strong> &#x2014; individual named entities</li>
 </ol>
-<h3>Collections</h3>
-<p>Collections are just lists of items that have name. Whenever you store or retreive the collections you use the collection name.</p>
-<h3>Named items</h3>
-<p>Similar to collections, but they reference just one item.</p>
-<h4>Why do you need to use named collections and named items?</h4>
-<p>Since ClojureScript data structures are immutable, holding a reference to the list of items (or item) will always give you the same value. By using the names, EntityDB can internally update named items and collections when the data changes and ensure the data consistency.</p>
+<p>Since ClojureScript data structures are immutable, holding a reference to a list of entities (or an entity) will always give you the same value. By using names, EntityDB can internally update named entities and collections when the data changes and ensure data consistency.</p>
 <hr>
 <p>Before you can store the entities you need to define the schema. Each entity type needs it&apos;s own schema:</p>
 <pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> schema {<span class="hljs-symbol">:users</span> {<span class="hljs-symbol">:id</span> <span class="hljs-symbol">:id</span>}
              <span class="hljs-symbol">:news</span> {<span class="hljs-symbol">:id</span> <span class="hljs-symbol">:slug</span>}})
 </code></pre>
-<p>With the schema defined, you can store the entities:</p>
+<p>With the schema defined, you can store entities:</p>
 <pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> store-v1 {})
 
 (<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> user {<span class="hljs-symbol">:id</span> <span class="hljs-number">1</span> <span class="hljs-symbol">:username</span> <span class="hljs-string">&quot;retro&quot;</span>})
@@ -58,15 +47,15 @@ body:
 (<span class="hljs-name">get-named-item</span> schema store-v3 <span class="hljs-symbol">:users</span> <span class="hljs-symbol">:current</span>)
 <span class="hljs-comment">;; Returns {:id 1 :username &quot;retro&quot; :likes &quot;programming&quot;}</span>
 </code></pre>
-<p>As you can see the data is kept consistent, without any manual synchronisation.</p>
+<p>Data is kept consistent &#x2014; no manual synchronisation required.</p>
 <h2>Relations</h2>
-<h3>One to One relations</h3>
-<p>EntityDB can handle simple relations between the entities. Relations are defined in the schema:</p>
+<h3>One-to-One relations</h3>
+<p>EntityDB can handle simple relations between entities. Relations are defined in the schema:</p>
 <pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> schema {<span class="hljs-symbol">:users</span> {<span class="hljs-symbol">:id</span> <span class="hljs-symbol">:id</span>}
              <span class="hljs-symbol">:news</span> {<span class="hljs-symbol">:relations</span> {<span class="hljs-symbol">:author</span> [<span class="hljs-symbol">:one</span> <span class="hljs-symbol">:users</span>]}}})
 </code></pre>
 <p>EntityDB will now expect a nested <code>author</code> object for each news entity. That object will be unpacked and stored in the <code>users</code> store.</p>
-<p>When you insert the an entity into the EntityDB multiple times, the data will be merged with the previous version. This allows you to write the code that looks like this:</p>
+<p>When you insert an entity into the EntityDB multiple times, it&apos;s data will be merged with the previous version&apos;s data. This allows you to write code that looks like this:</p>
 <pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> schema {<span class="hljs-symbol">:users</span> {<span class="hljs-symbol">:id</span> <span class="hljs-symbol">:id</span>}
              <span class="hljs-symbol">:news</span> {<span class="hljs-symbol">:relations</span> {<span class="hljs-symbol">:author</span> [<span class="hljs-symbol">:one</span> <span class="hljs-symbol">:users</span>]}}})
 
@@ -93,9 +82,9 @@ body:
 ((<span class="hljs-symbol">:author</span> news-1))
 <span class="hljs-comment">;; Returns {:id 1 :username &quot;retro&quot;}</span>
 </code></pre>
-<p>When you access the nested relation stored in EntityDB, it will be wrapped inside the function. This ensures that circular relations can be resolved.</p>
-<h3>One to Many relations</h3>
-<p>EntityDB supports one to many relations too:</p>
+<p>When you access a nested relation stored in EntityDB, it will be wrapped inside a function. This ensures that circular relations can be resolved.</p>
+<h3>One-to-Many relations</h3>
+<p>EntityDB supports one-to-many relations too:</p>
 <pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> schema {<span class="hljs-symbol">:users</span> {<span class="hljs-symbol">:id</span> <span class="hljs-symbol">:id</span>
                      <span class="hljs-symbol">:relations</span> {<span class="hljs-symbol">:news</span> [<span class="hljs-symbol">:many</span> <span class="hljs-symbol">:news</span>]}}
              <span class="hljs-symbol">:news</span> {<span class="hljs-symbol">:id</span> <span class="hljs-symbol">:id</span>
@@ -123,5 +112,5 @@ body:
 <span class="hljs-comment">;; Returns [{:id 1 :title &quot;First News&quot; :author (fn[])}]</span>
 </code></pre>
 <hr>
-<p>Relations support in EntityDB provides you with an effortless way to keep your data consistent.</p>
-<p>Read the EntityDB <a href="api/keechma.edb.html">API docs</a>.</p>
+<p>Relations support in EntityDB provides you with a flexible way to keep your data consistent.</p>
+<p>Here are the EntityDB <a href="/api/entitydb/">API docs</a>.</p>

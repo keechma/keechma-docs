@@ -25,7 +25,8 @@ body:
         </ul>
     </div>
     <div class="namespace-index" id="content">
-        <h1><span class="project-title"><span class="project-name">Router</span> <span class="project-version">0.1.0</span></span></h1>
+        <h1><span class="project-title"><span class="project-name">Router</span> <span class="project-version">0.1.0</span></span>
+        </h1>
         <div class="doc">
             <p>Router - Pure functional router for ClojureScript applications.</p>
         </div>

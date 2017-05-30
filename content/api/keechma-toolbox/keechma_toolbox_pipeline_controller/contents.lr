@@ -1,0 +1,195 @@
+_model: api-annotated
+---
+title: API / keechma.toolbox.pipeline.controller documentation
+---
+body:
+
+<div class="api-container">
+    
+    <div class="sidebar primary">
+        <h3 class="no-link"><span class="inner">Project</span></h3>
+        <ul class="index-link">
+            <li class="depth-1 ">
+                <a href="/api/keechma-toolbox/">
+                    <div class="inner">Index</div>
+                </a>
+            </li>
+        </ul>
+        <h3 class="no-link"><span class="inner">Namespaces</span></h3>
+        <ul>
+            <li class="depth-1">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>keechma</span></div>
+                </div>
+            </li>
+            <li class="depth-2">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>toolbox</span></div>
+                </div>
+            </li>
+            <li class="depth-3">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>dataloader</span></div>
+                </div>
+            </li>
+            <li class="depth-4">
+                <a href="/api/keechma-toolbox/keechma_toolbox_dataloader_controller">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
+                </a>
+            </li>
+            <li class="depth-3">
+                <div class="no-link">
+                    <div class="inner"><span class="tree" style="top: -52px;"><span class="top" style="height: 61px;"></span><span class="bottom"></span></span><span>pipeline</span></div>
+                </div>
+            </li>
+            <li class="depth-4 current">
+                <a href="/api/keechma-toolbox/keechma_toolbox_pipeline_controller">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
+                </a>
+            </li>
+            <li class="depth-3">
+                <a href="/api/keechma-toolbox/keechma_toolbox_ui">
+                    <div class="inner"><span class="tree" style="top: -52px;"><span class="top" style="height: 61px;"></span><span class="bottom"></span></span><span>ui</span></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar secondary">
+        <h3><a href="#top"><span class="inner">Public Vars</span></a></h3>
+        <ul>
+            <li class="depth-1">
+                <a href="#var--.3EPipelineController">
+                    <div class="inner"><span>-&gt;PipelineController</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-constructor">
+                    <div class="inner"><span>constructor</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-map-.3EPipelineController">
+                    <div class="inner"><span>map-&gt;PipelineController</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-PipelineController">
+                    <div class="inner"><span>PipelineController</span></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="namespace-docs" id="content">
+        <h1 class="anchor" id="top">keechma.toolbox.pipeline.controller</h1>
+        <div class="doc">
+            <div class="markdown"></div>
+        </div>
+        <div class="public anchor" id="var--.3EPipelineController">
+            <h3>-&gt;PipelineController</h3>
+            <div class="usage"><code>(-&gt;PipelineController params-fn pipelines)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-constructor">
+            <h3>constructor</h3>
+            <div class="usage"><code>(constructor params-fn pipelines)</code></div>
+            <div class="doc">
+                <div class="markdown">
+                    <p>Constructor for the pipeline controller.</p>
+                    <p>Pipeline controllers are special type of Keechma controllers that handle their commands with pipelines. Pipelines allow you to model a command / action as a series of steps. Pipelines know how to handle promises and they themselves
+                        return a promise.</p>
+                    <p>Pipelines allow you to split async actions into distinct steps:</p>
+                    <ul>
+                        <li>Pipeline processing</li>
+                        <li>Sideffects</li>
+                    </ul>
+                    <p>If a pipeline processing step returns a promise (for instance from an AJAX request), pipeline will wait until that promise is resolved before proceeding to the next step.</p>
+                    <p>Simple example</p>
+                    <pre><code class="clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">ns</span></span> some-namespace
+  (<span class="hljs-symbol">:require</span> [keechma.toolbox.pipeline.controller <span class="hljs-symbol">:as</span> pp-controller]
+            [keechma.toolbox.pipeline.core <span class="hljs-symbol">:as</span> pp <span class="hljs-symbol">:refer-macros</span> [pipeline!]])
+
+(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> some-controller
+  (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [route-params] <span class="hljs-literal">true</span>) <span class="hljs-comment">;; route params function</span>
+  {<span class="hljs-symbol">:start</span> (<span class="hljs-name">pipeline!</span> [value app-db]
+            (<span class="hljs-name">pp/commit!</span> (<span class="hljs-name">assoc-in</span> app-db [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:current-user-status</span>] <span class="hljs-symbol">:loading</span>))
+            (<span class="hljs-name">load-user-from-server</span>)
+            (<span class="hljs-name">pp/commit!</span> (<span class="hljs-name">-&gt;app-db</span>
+                           (<span class="hljs-name">assoc-in</span> [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:current-user-status</span>] <span class="hljs-symbol">:loaded</span>)
+                           (<span class="hljs-name">assoc-in</span> [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:current-user</span>] value))))})
+</code></pre>
+                    <p>In the previous example three things happened:</p>
+                    <ol>
+                        <li>We stored current user status as <code>:loading</code> in the app-db</li>
+                        <li>We loaded user from the server</li>
+                        <li>We stored the current user status and the current user in the app-db</li>
+                    </ol>
+                    <p><code>value</code> always holds the returned (or resolved) value from the previous processing step - unless the function returns <code>nil</code> in that case, value is bound to the previous value. Also, we had to use the <code>commit!</code>                        sideffect function to mutate the app-db.</p>
+                    <p><code>value</code> and <code>app-db</code> arguments are always bound to the current pipeline value and to the current version of app-db. This means that in every processing step, value and app-db point to the results of the previous
+                        processing step.`</p>
+                    <p>If we want to handle errors or rejections in pipelines, we can use the <code>rescue!</code> block:</p>
+                    <pre><code class="clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> some-controller
+  (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [route-params] <span class="hljs-literal">true</span>) <span class="hljs-comment">;; route params function</span>
+  {<span class="hljs-symbol">:start</span> (<span class="hljs-name">pipeline!</span> [value app-db]
+            (<span class="hljs-name">pp/commit!</span> (<span class="hljs-name">assoc-in</span> app-db [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:current-user-status</span>] <span class="hljs-symbol">:loading</span>))
+            (<span class="hljs-name">load-user-from-server</span>)
+            (<span class="hljs-name">pp/commit!</span> (<span class="hljs-name">-&gt;app-db</span>
+                           (<span class="hljs-name">assoc-in</span> [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:current-user-status</span>] <span class="hljs-symbol">:loaded</span>)
+                           (<span class="hljs-name">assoc-in</span> [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:current-user</span>] value)))
+            (<span class="hljs-name">rescue!</span> [error]
+              (<span class="hljs-name">pp/commit!</span> (<span class="hljs-name">assoc-in</span> app-db [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:current-user-status</span>] <span class="hljs-symbol">:error</span>))})
+</code></pre>
+                    <p>Rescue block will catch any errors that happen in the pipeline - including the promises that were rejected. Steps in the rescue block have access to value and app-db arguments.</p>
+                    <p><strong>Nesting pipelines</strong></p>
+                    <p>Sometimes you need to run the pipeline only if some condition is true. In that case you can nest pipelines:</p>
+                    <pre><code class="clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> some-controller
+  (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [route-params] <span class="hljs-literal">true</span>) <span class="hljs-comment">;; route params function</span>
+  {<span class="hljs-symbol">:start</span> (<span class="hljs-name">pipeline!</span> [value app-db]
+            (<span class="hljs-name"><span class="hljs-builtin-name">when</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">=</span></span> value <span class="hljs-literal">true</span>)
+              (<span class="hljs-name">pipeline!</span> [value app-db]
+                (<span class="hljs-name">some-api-call</span>)
+                (<span class="hljs-name">pp/commit!</span> (<span class="hljs-name">mutate-app-db</span> app-db)))))}) 
+</code></pre>
+                    <p><strong>Pipeline sideffects</strong></p>
+                    <p>Pipelines can have various sideffects:</p>
+                    <ol>
+                        <li><code>commit!</code> - commits the new app-db version in the global app-db atom</li>
+                        <li><code>send-command!</code> - sends command to another controller</li>
+                        <li><code>execute!</code> - executes command in the current controller</li>
+                        <li><code>redirect!</code> - redirects to a different URL</li>
+                    </ol>
+                    <p><strong>Exclusive pipelines</strong></p>
+                    <p>In some cases you want to always run only one pipeline at a time. One example of that behavior is the live search. </p>
+                    <p>Let&#x2019;s say that you want to implement it as a command that runs on every key press. After the command is ran, it should wait for 500msec before calling the API. If the command is called again in these 500msec, stop the pipeline and
+                        run a new one.</p>
+                    <p>Here&#x2019;s how you would implement this feature:</p>
+                    <pre><code class="clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> search-controller
+  (<span class="hljs-name">pp-controller/constructor</span>
+   (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [] <span class="hljs-literal">true</span>)
+   {<span class="hljs-symbol">:search</span> (<span class="hljs-name">pp/exclusive</span>
+             (<span class="hljs-name">pipeline!</span> [value app-db]
+               (<span class="hljs-name"><span class="hljs-builtin-name">when-not</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">empty?</span></span> value)
+                 (<span class="hljs-name">pipeline!</span> [value app-db]
+                   (<span class="hljs-name">delay-pipeline</span> <span class="hljs-number">500</span>)
+                   (<span class="hljs-name">movie-search</span> value)
+                   (<span class="hljs-name">println</span> <span class="hljs-string">&quot;SEARCH RESULTS:&quot;</span> value)))))}))
+</code></pre></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-map-.3EPipelineController">
+            <h3>map-&gt;PipelineController</h3>
+            <div class="usage"><code>(map-&gt;PipelineController G__13704)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-PipelineController">
+            <h3>PipelineController</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+    </div>
+</div>

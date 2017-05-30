@@ -48,6 +48,11 @@ body:
         <h3><a href="#top"><span class="inner">Public Vars</span></a></h3>
         <ul>
             <li class="depth-1">
+                <a href="#var--.3ESerializedController">
+                    <div class="inner"><span>-&gt;SerializedController</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
                 <a href="#var-dispatcher">
                     <div class="inner"><span>dispatcher</span></div>
                 </a>
@@ -73,6 +78,16 @@ body:
                 </a>
             </li>
             <li class="depth-2 branch">
+                <a href="#var-wake">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>wake</span></div>
+                </a>
+            </li>
+            <li class="depth-2 branch">
+                <a href="#var-report">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>report</span></div>
+                </a>
+            </li>
+            <li class="depth-2 branch">
                 <a href="#var-params">
                     <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>params</span></div>
                 </a>
@@ -88,13 +103,38 @@ body:
                 </a>
             </li>
             <li class="depth-2 branch">
+                <a href="#var-ssr-handler">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>ssr-handler</span></div>
+                </a>
+            </li>
+            <li class="depth-2 branch">
                 <a href="#var-stop">
                     <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>stop</span></div>
+                </a>
+            </li>
+            <li class="depth-2 branch">
+                <a href="#var-context">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>context</span></div>
                 </a>
             </li>
             <li class="depth-2">
                 <a href="#var-is-running.3F">
                     <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>is-running?</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-map-.3ESerializedController">
+                    <div class="inner"><span>map-&gt;SerializedController</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-not-implemented">
+                    <div class="inner"><span>not-implemented</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-SerializedController">
+                    <div class="inner"><span>SerializedController</span></div>
                 </a>
             </li>
         </ul>
@@ -103,6 +143,13 @@ body:
         <h1 class="anchor" id="top">keechma.controller</h1>
         <div class="doc">
             <div class="markdown"></div>
+        </div>
+        <div class="public anchor" id="var--.3ESerializedController">
+            <h3>-&gt;SerializedController</h3>
+            <div class="usage"><code>(-&gt;SerializedController params)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
         </div>
         <div class="public anchor" id="var-dispatcher">
             <h3>dispatcher</h3>
@@ -192,6 +239,23 @@ body:
                             </div>
                         </div>
                     </div>
+                    <div class="public anchor" id="var-wake">
+                        <h3>wake</h3>
+                        <div class="usage"><code>(wake this params app-db)</code></div>
+                        <div class="doc">
+                            <div class="markdown">
+                                <p>Called when the controller is started from the saved state stored on the server. It will be called instead of the <code>start</code> function if the <code>ssr-handler</code> function is implemented. This allows you to manually
+                                    revive the serialized data if needed. Usually this function is not needed, but if you for instance start the inner application from the controller, you can use this function to wake the inner app.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="public anchor" id="var-report">
+                        <h3>report</h3>
+                        <div class="usage"><code>(report this direction name payload)</code><code>(report this direction name payload severity)</code></div>
+                        <div class="doc">
+                            <div class="markdown"></div>
+                        </div>
+                    </div>
                     <div class="public anchor" id="var-params">
                         <h3>params</h3>
                         <div class="usage"><code>(params this route-params)</code></div>
@@ -219,12 +283,31 @@ body:
                             </div>
                         </div>
                     </div>
+                    <div class="public anchor" id="var-ssr-handler">
+                        <h3>ssr-handler</h3>
+                        <div class="usage"><code>(ssr-handler this app-db-atom done in-chan out-chan)</code></div>
+                        <div class="doc">
+                            <div class="markdown">
+                                <p>Called in after the <code>start</code> (instead of the <code>handler</code> function) function in the server side context. This function should call the <code>done</code> callback when it has completed the server side data
+                                    loading. Returning <code>::not-implemented</code> which is a default behavior will mark the controller as non server side.</p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="public anchor" id="var-stop">
                         <h3>stop</h3>
                         <div class="usage"><code>(stop this params app-db)</code></div>
                         <div class="doc">
                             <div class="markdown">
                                 <p>Called when the controller is stopped. Receives the controller <code>params</code> (returned by the <code>params</code> function) and the application state. It must return the application state.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="public anchor" id="var-context">
+                        <h3>context</h3>
+                        <div class="usage"><code>(context this)</code><code>(context this key)</code></div>
+                        <div class="doc">
+                            <div class="markdown">
+                                <p>Return the context passed to application.</p>
                             </div>
                         </div>
                     </div>
@@ -238,6 +321,27 @@ body:
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-map-.3ESerializedController">
+            <h3>map-&gt;SerializedController</h3>
+            <div class="usage"><code>(map-&gt;SerializedController G__12233)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-not-implemented">
+            <h3>not-implemented</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-SerializedController">
+            <h3>SerializedController</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
             </div>
         </div>
     </div>

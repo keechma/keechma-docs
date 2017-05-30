@@ -1,6 +1,6 @@
 _model: api-annotated
 ---
-title: API / Forms 0.1.2
+title: API / Forms 0.1.3
 ---
 body:
 
@@ -40,12 +40,13 @@ body:
         </ul>
     </div>
     <div class="namespace-index" id="content">
-        <h1><span class="project-title"><span class="project-name">Forms</span> <span class="project-version">0.1.2</span></span></h1>
+        <h1><span class="project-title"><span class="project-name">Forms</span> <span class="project-version">0.1.3</span></span>
+        </h1>
         <div class="doc">
             <p>Keechma Forms library allows you to build forms (using the Reagent library) that have a great UX.</p>
         </div>
         <h2>Installation</h2>
-        <p>To install, add the following dependency to your project or build file:</p><div class="pre-deps-wrap"><pre class="deps">[keechma/forms &quot;0.1.2&quot;]</pre></div>
+        <p>To install, add the following dependency to your project or build file:</p><div class="pre-deps-wrap"><pre class="deps">[keechma/forms &quot;0.1.3&quot;]</pre></div>
         <h2>Namespaces</h2>
         <div class="namespace">
             <h3><a href="forms_core">forms.core</a></h3>

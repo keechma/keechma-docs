@@ -8,12 +8,12 @@ body:
 
 
 <p><a href="https://clojars.org/keechma"><img src="https://img.shields.io/clojars/v/keechma.svg" alt="Clojars Project"></a></p>
-<p>Keechma is a micro framework for Reagent written in ClojureScript. It gives you a set of utilites that allow you to build the applications that have the following properties:</p>
+<p>Keechma is a micro framework for Reagent written in ClojureScript. It gives you a set of utilites that allow you to build applications that have the following properties:</p>
 <ul>
 <li><strong>Deterministic and predictable behavior</strong>
 <ul>
-<li>Based on the route, you can determine how will the application state look</li>
-<li>UI never &quot;requests&quot; the data it is always provided to it</li>
+<li>Based on the route, you can determine what the application&apos;s state will be</li>
+<li>UI never &quot;requests&quot; data it&apos;s always provided to it</li>
 </ul>
 </li>
 <li><strong>Unidirectional data flow</strong>
@@ -28,9 +28,9 @@ body:
 <li>Communication is performed through <code>core.async</code> channels</li>
 </ul>
 </li>
-<li><strong>Automatic synchronization of the entity states</strong>
+<li><strong>Automatic synchronization of entities&apos; states</strong>
 <ul>
-<li>Entity is any data loaded into the app that has identity (e.g. <code>:id</code> column)</li>
+<li>An entity is any data loaded into the app that has identity (e.g. <code>:id</code> column)</li>
 <li>Entities are stored in the EntityDB</li>
 <li>EntityDB propagates entity state to every place where that entity is displayed in the UI</li>
 </ul>

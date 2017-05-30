@@ -2,7 +2,7 @@ _model: page
 ---
 title: API Docs
 ---
-body: 
+body:
 
 Keechma is built from multiple independent libraries.
 
@@ -12,6 +12,13 @@ The whole package, pulls in everything you need to build scalable frontend appli
 
 - [Source code](https://github.com/keechma/keechma)
 - [API Docs](/api/keechma/)
+
+## Keechma Toolbox
+
+A set of libraries that make working with Keechma easier.
+
+- [Source code](https://github.com/keechma/keechma-toolbox)
+- [API Docs](/api/keechma-toolbox/)
 
 ## EntityDB
 

@@ -25,7 +25,8 @@ body:
         </ul>
     </div>
     <div class="namespace-index" id="content">
-        <h1><span class="project-title"><span class="project-name">Entitydb</span> <span class="project-version">0.1.0</span></span></h1>
+        <h1><span class="project-title"><span class="project-name">Entitydb</span> <span class="project-version">0.1.0</span></span>
+        </h1>
         <div class="doc">
             <p>EntityDB - In memory entity store for ClojureScript applications.</p>
         </div>

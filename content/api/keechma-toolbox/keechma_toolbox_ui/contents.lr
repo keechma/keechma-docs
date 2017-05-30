@@ -1,0 +1,110 @@
+_model: api-annotated
+---
+title: API / keechma.toolbox.ui documentation
+---
+body:
+
+<div class="api-container">
+    
+    <div class="sidebar primary">
+        <h3 class="no-link"><span class="inner">Project</span></h3>
+        <ul class="index-link">
+            <li class="depth-1 ">
+                <a href="/api/keechma-toolbox/">
+                    <div class="inner">Index</div>
+                </a>
+            </li>
+        </ul>
+        <h3 class="no-link"><span class="inner">Namespaces</span></h3>
+        <ul>
+            <li class="depth-1">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>keechma</span></div>
+                </div>
+            </li>
+            <li class="depth-2">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>toolbox</span></div>
+                </div>
+            </li>
+            <li class="depth-3">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>dataloader</span></div>
+                </div>
+            </li>
+            <li class="depth-4">
+                <a href="/api/keechma-toolbox/keechma_toolbox_dataloader_controller">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
+                </a>
+            </li>
+            <li class="depth-3">
+                <div class="no-link">
+                    <div class="inner"><span class="tree" style="top: -52px;"><span class="top" style="height: 61px;"></span><span class="bottom"></span></span><span>pipeline</span></div>
+                </div>
+            </li>
+            <li class="depth-4">
+                <a href="/api/keechma-toolbox/keechma_toolbox_pipeline_controller">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
+                </a>
+            </li>
+            <li class="depth-3 current">
+                <a href="/api/keechma-toolbox/keechma_toolbox_ui">
+                    <div class="inner"><span class="tree" style="top: -52px;"><span class="top" style="height: 61px;"></span><span class="bottom"></span></span><span>ui</span></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar secondary">
+        <h3><a href="#top"><span class="inner">Public Vars</span></a></h3>
+        <ul>
+            <li class="depth-1">
+                <a href="#var-.3Ccmd">
+                    <div class="inner"><span>&lt;cmd</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-route.3E">
+                    <div class="inner"><span>route&gt;</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-sub.3E">
+                    <div class="inner"><span>sub&gt;</span></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="namespace-docs" id="content">
+        <h1 class="anchor" id="top">keechma.toolbox.ui</h1>
+        <div class="doc">
+            <div class="markdown"></div>
+        </div>
+        <div class="public anchor" id="var-.3Ccmd">
+            <h3>&lt;cmd</h3>
+            <div class="usage"><code>(&lt;cmd ctx command &amp; args)</code></div>
+            <div class="doc">
+                <div class="markdown">
+                    <p>Send a command to the controller</p>
+                </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-route.3E">
+            <h3>route&gt;</h3>
+            <div class="usage"><code>(route&gt; ctx)</code></div>
+            <div class="doc">
+                <div class="markdown">
+                    <p>Read current route data. Derefs the route subscription</p>
+                </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-sub.3E">
+            <h3>sub&gt;</h3>
+            <div class="usage"><code>(sub&gt; ctx subscription &amp; args)</code></div>
+            <div class="doc">
+                <div class="markdown">
+                    <p>Read and defer a component subscription</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

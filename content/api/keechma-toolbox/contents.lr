@@ -1,0 +1,112 @@
+_model: api-annotated
+---
+title: API / Toolbox 0.0.1-SNAPSHOT-4
+---
+body:
+
+<div class="api-container">
+    
+    <div class="sidebar primary">
+        <h3 class="no-link"><span class="inner">Project</span></h3>
+        <ul class="index-link">
+            <li class="depth-1 current">
+                <a href="/api/keechma-toolbox/">
+                    <div class="inner">Index</div>
+                </a>
+            </li>
+        </ul>
+        <h3 class="no-link"><span class="inner">Namespaces</span></h3>
+        <ul>
+            <li class="depth-1">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>keechma</span></div>
+                </div>
+            </li>
+            <li class="depth-2">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>toolbox</span></div>
+                </div>
+            </li>
+            <li class="depth-3">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>dataloader</span></div>
+                </div>
+            </li>
+            <li class="depth-4">
+                <a href="/api/keechma-toolbox/keechma_toolbox_dataloader_controller">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
+                </a>
+            </li>
+            <li class="depth-3">
+                <div class="no-link">
+                    <div class="inner"><span class="tree" style="top: -52px;"><span class="top" style="height: 61px;"></span><span class="bottom"></span></span><span>pipeline</span></div>
+                </div>
+            </li>
+            <li class="depth-4">
+                <a href="/api/keechma-toolbox/keechma_toolbox_pipeline_controller">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
+                </a>
+            </li>
+            <li class="depth-3">
+                <a href="/api/keechma-toolbox/keechma_toolbox_ui">
+                    <div class="inner"><span class="tree" style="top: -52px;"><span class="top" style="height: 61px;"></span><span class="bottom"></span></span><span>ui</span></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="namespace-index" id="content">
+        <h1><span class="project-title"><span class="project-name">Toolbox</span> <span class="project-version">0.0.1-SNAPSHOT-4</span></span>
+        </h1>
+        <div class="doc">
+            <p>Keechma Toolbox.</p>
+        </div>
+        <h2>Installation</h2>
+        <p>To install, add the following dependency to your project or build file:</p><div class="pre-deps-wrap"><pre class="deps">[keechma/toolbox &quot;0.0.1-SNAPSHOT-4&quot;]</pre></div>
+        <h2>Namespaces</h2>
+        <div class="namespace">
+            <h3><a href="keechma_toolbox_dataloader_controller">keechma.toolbox.dataloader.controller</a></h3>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+            <div class="index">
+                <p>Public variables and functions:</p>
+                <ul>
+                    <li> <a href="keechma_toolbox_dataloader_controller#var--.3EController">-&gt;Controller</a> </li>
+                    <li> <a href="keechma_toolbox_dataloader_controller#var-constructor">constructor</a> </li>
+                    <li> <a href="keechma_toolbox_dataloader_controller#var-Controller">Controller</a> </li>
+                    <li> <a href="keechma_toolbox_dataloader_controller#var-map-.3EController">map-&gt;Controller</a> </li>
+                    <li> <a href="keechma_toolbox_dataloader_controller#var-register">register</a> </li>
+                </ul>
+            </div>
+        </div>
+        <div class="namespace">
+            <h3><a href="keechma_toolbox_pipeline_controller">keechma.toolbox.pipeline.controller</a></h3>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+            <div class="index">
+                <p>Public variables and functions:</p>
+                <ul>
+                    <li> <a href="keechma_toolbox_pipeline_controller#var--.3EPipelineController">-&gt;PipelineController</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_controller#var-constructor">constructor</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_controller#var-map-.3EPipelineController">map-&gt;PipelineController</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_controller#var-PipelineController">PipelineController</a> </li>
+                </ul>
+            </div>
+        </div>
+        <div class="namespace">
+            <h3><a href="keechma_toolbox_ui">keechma.toolbox.ui</a></h3>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+            <div class="index">
+                <p>Public variables and functions:</p>
+                <ul>
+                    <li> <a href="keechma_toolbox_ui#var-.3Ccmd">&lt;cmd</a> </li>
+                    <li> <a href="keechma_toolbox_ui#var-route.3E">route&gt;</a> </li>
+                    <li> <a href="keechma_toolbox_ui#var-sub.3E">sub&gt;</a> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

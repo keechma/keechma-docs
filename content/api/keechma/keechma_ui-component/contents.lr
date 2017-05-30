@@ -78,6 +78,11 @@ body:
                 </a>
             </li>
             <li class="depth-2 branch">
+                <a href="#var-report">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>report</span></div>
+                </a>
+            </li>
+            <li class="depth-2 branch">
                 <a href="#var-current-route">
                     <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>current-route</span></div>
                 </a>
@@ -206,6 +211,13 @@ body:
                             </div>
                         </div>
                     </div>
+                    <div class="public anchor" id="var-report">
+                        <h3>report</h3>
+                        <div class="usage"><code>(report this name payload)</code><code>(report this name payload severity)</code></div>
+                        <div class="doc">
+                            <div class="markdown"></div>
+                        </div>
+                    </div>
                     <div class="public anchor" id="var-current-route">
                         <h3>current-route</h3>
                         <div class="usage"><code>(current-route this)</code></div>
@@ -247,7 +259,7 @@ body:
         </div>
         <div class="public anchor" id="var-map-.3EUIComponent">
             <h3>map-&gt;UIComponent</h3>
-            <div class="usage"><code>(map-&gt;UIComponent G__9093)</code></div>
+            <div class="usage"><code>(map-&gt;UIComponent G__12746)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>

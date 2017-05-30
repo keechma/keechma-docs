@@ -48,13 +48,108 @@ body:
         <h3><a href="#top"><span class="inner">Public Vars</span></a></h3>
         <ul>
             <li class="depth-1">
+                <a href="#var--.3EAppState">
+                    <div class="inner"><span>-&gt;AppState</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var--.3EAppStateWriteHandler">
+                    <div class="inner"><span>-&gt;AppStateWriteHandler</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var--.3EControllerWriteHandler">
+                    <div class="inner"><span>-&gt;ControllerWriteHandler</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var--.3ESerializedAppState">
+                    <div class="inner"><span>-&gt;SerializedAppState</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-add-sub-cache">
+                    <div class="inner"><span>add-sub-cache</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-app-renderer">
+                    <div class="inner"><span>app-renderer</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-AppState">
+                    <div class="inner"><span>AppState</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-AppStateWriteHandler">
+                    <div class="inner"><span>AppStateWriteHandler</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-ControllerWriteHandler">
+                    <div class="inner"><span>ControllerWriteHandler</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-deserialize-app-state">
+                    <div class="inner"><span>deserialize-app-state</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-get-controller-types-set">
+                    <div class="inner"><span>get-controller-types-set</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-get-initial-data">
+                    <div class="inner"><span>get-initial-data</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-map-.3EAppState">
+                    <div class="inner"><span>map-&gt;AppState</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-map-.3ESerializedAppState">
+                    <div class="inner"><span>map-&gt;SerializedAppState</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-prepare-for-serialization">
+                    <div class="inner"><span>prepare-for-serialization</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
                 <a href="#var-restore-app-db">
                     <div class="inner"><span>restore-app-db</span></div>
                 </a>
             </li>
             <li class="depth-1">
+                <a href="#var-serialize-app-state">
+                    <div class="inner"><span>serialize-app-state</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-SerializedAppState">
+                    <div class="inner"><span>SerializedAppState</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
                 <a href="#var-start.21">
                     <div class="inner"><span>start!</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-start-router.21">
+                    <div class="inner"><span>start-router!</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-start-selected-router.21">
+                    <div class="inner"><span>start-selected-router!</span></div>
                 </a>
             </li>
             <li class="depth-1">
@@ -69,9 +164,128 @@ body:
         <div class="doc">
             <div class="markdown"></div>
         </div>
+        <div class="public anchor" id="var--.3EAppState">
+            <h3>-&gt;AppState</h3>
+            <div class="usage"><code>(-&gt;AppState name reporter router routes-chan commands-chan app-db subscriptions-cache components controllers context html-element stop-fns)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var--.3EAppStateWriteHandler">
+            <h3>-&gt;AppStateWriteHandler</h3>
+            <div class="usage"><code>(-&gt;AppStateWriteHandler)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var--.3EControllerWriteHandler">
+            <h3>-&gt;ControllerWriteHandler</h3>
+            <div class="usage"><code>(-&gt;ControllerWriteHandler)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var--.3ESerializedAppState">
+            <h3>-&gt;SerializedAppState</h3>
+            <div class="usage"><code>(-&gt;SerializedAppState app-db)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-add-sub-cache">
+            <h3>add-sub-cache</h3>
+            <div class="usage"><code>(add-sub-cache cache [key sub])</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-app-renderer">
+            <h3>app-renderer</h3>
+            <div class="usage"><code>(app-renderer state)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-AppState">
+            <h3>AppState</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-AppStateWriteHandler">
+            <h3>AppStateWriteHandler</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-ControllerWriteHandler">
+            <h3>ControllerWriteHandler</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-deserialize-app-state">
+            <h3>deserialize-app-state</h3>
+            <div class="usage"><code>(deserialize-app-state transit-readers serialized-state)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-get-controller-types-set">
+            <h3>get-controller-types-set</h3>
+            <div class="usage"><code>(get-controller-types-set app-state)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-get-initial-data">
+            <h3>get-initial-data</h3>
+            <div class="usage"><code>(get-initial-data config)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-map-.3EAppState">
+            <h3>map-&gt;AppState</h3>
+            <div class="usage"><code>(map-&gt;AppState G__12019)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-map-.3ESerializedAppState">
+            <h3>map-&gt;SerializedAppState</h3>
+            <div class="usage"><code>(map-&gt;SerializedAppState G__12026)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-prepare-for-serialization">
+            <h3>prepare-for-serialization</h3>
+            <div class="usage"><code>(prepare-for-serialization value)</code><code>(prepare-for-serialization value controller-types)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
         <div class="public anchor" id="var-restore-app-db">
             <h3>restore-app-db</h3>
             <div class="usage"><code>(restore-app-db old-app new-app)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-serialize-app-state">
+            <h3>serialize-app-state</h3>
+            <div class="usage"><code>(serialize-app-state transit-writers state)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-SerializedAppState">
+            <h3>SerializedAppState</h3>
+            <div class="usage"></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>
@@ -111,6 +325,20 @@ body:
                         <li>Application is (optionally) mounted into the DOM</li>
                     </ol>
                 </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-start-router.21">
+            <h3>start-router!</h3>
+            <div class="usage"><code>(start-router! state)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-start-selected-router.21">
+            <h3>start-selected-router!</h3>
+            <div class="usage"><code>(start-selected-router! state constructor)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
             </div>
         </div>
         <div class="public anchor" id="var-stop.21">

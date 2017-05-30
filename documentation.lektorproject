@@ -4,6 +4,7 @@ url = http://keechma.com
 
 [packages]
 lektor-webpack-support = 0.1
+lektor-atom = 0.2
 
 [servers.production]
 name = Production

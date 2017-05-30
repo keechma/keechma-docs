@@ -48,8 +48,63 @@ body:
         <h3><a href="#top"><span class="inner">Public Vars</span></a></h3>
         <ul>
             <li class="depth-1">
+                <a href="#var-apply-route-change">
+                    <div class="inner"><span>apply-route-change</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-apply-start-controllers">
+                    <div class="inner"><span>apply-start-controllers</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-apply-start-or-wake-controllers">
+                    <div class="inner"><span>apply-start-or-wake-controllers</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-apply-stop-controllers">
+                    <div class="inner"><span>apply-stop-controllers</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-apply-wake-controllers">
+                    <div class="inner"><span>apply-wake-controllers</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-call-handler-on-started-controllers">
+                    <div class="inner"><span>call-handler-on-started-controllers</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-call-ssr-handler-on-started-controllers">
+                    <div class="inner"><span>call-ssr-handler-on-started-controllers</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-report-running-controllers">
+                    <div class="inner"><span>report-running-controllers</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-route-change-execution-plan">
+                    <div class="inner"><span>route-change-execution-plan</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-send-route-changed-to-surviving-controllers">
+                    <div class="inner"><span>send-route-changed-to-surviving-controllers</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
                 <a href="#var-start">
                     <div class="inner"><span>start</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-start-ssr">
+                    <div class="inner"><span>start-ssr</span></div>
                 </a>
             </li>
         </ul>
@@ -59,9 +114,79 @@ body:
         <div class="doc">
             <div class="markdown"></div>
         </div>
+        <div class="public anchor" id="var-apply-route-change">
+            <h3>apply-route-change</h3>
+            <div class="usage"><code>(apply-route-change reporter route-params app-db-atom commands-chan controllers)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-apply-start-controllers">
+            <h3>apply-start-controllers</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-apply-start-or-wake-controllers">
+            <h3>apply-start-or-wake-controllers</h3>
+            <div class="usage"><code>(apply-start-or-wake-controllers action reporter-action app-db reporter controllers commands-chan get-running start-or-wake)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-apply-stop-controllers">
+            <h3>apply-stop-controllers</h3>
+            <div class="usage"><code>(apply-stop-controllers app-db reporter stop)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-apply-wake-controllers">
+            <h3>apply-wake-controllers</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-call-handler-on-started-controllers">
+            <h3>call-handler-on-started-controllers</h3>
+            <div class="usage"><code>(call-handler-on-started-controllers app-db-atom reporter start)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-call-ssr-handler-on-started-controllers">
+            <h3>call-ssr-handler-on-started-controllers</h3>
+            <div class="usage"><code>(call-ssr-handler-on-started-controllers app-db-atom reporter start ssr-handler-done-cb)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-report-running-controllers">
+            <h3>report-running-controllers</h3>
+            <div class="usage"><code>(report-running-controllers app-db-atom)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-route-change-execution-plan">
+            <h3>route-change-execution-plan</h3>
+            <div class="usage"><code>(route-change-execution-plan route-params running-controllers controllers)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-send-route-changed-to-surviving-controllers">
+            <h3>send-route-changed-to-surviving-controllers</h3>
+            <div class="usage"><code>(send-route-changed-to-surviving-controllers app-db-atom reporter route-changed route-params)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
         <div class="public anchor" id="var-start">
             <h3>start</h3>
-            <div class="usage"><code>(start route-chan commands-chan app-db controllers)</code></div>
+            <div class="usage"><code>(start route-chan commands-chan app-db-atom controllers reporter)</code></div>
             <div class="doc">
                 <div class="markdown">
                     <p>Starts the controller manager. Controller manager is the central part of the application that manages the lifecycle of the controllers and routes the messages sent to them.</p>
@@ -86,6 +211,13 @@ body:
                     <p>Controller manager also acts as a command router. Each time a command comes - through the <code>commands-chan</code> the name of the command should look like this <code>[:controlnler-key :command-name]</code>. Controller manager will
                         route the <code>:command-name</code> command to the appropriate controller based on the <code>:controller-key</code>. Controller key is the key under which the controller was registered in the <code>controllers</code> argument.</p>
                 </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-start-ssr">
+            <h3>start-ssr</h3>
+            <div class="usage"><code>(start-ssr routes-chan commands-chan app-db-atom controllers reporter done-cb)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
             </div>
         </div>
     </div>

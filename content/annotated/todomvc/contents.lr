@@ -291,23 +291,23 @@ them to the functions that modify the state.</p>
     (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> [entity-db (<span class="hljs-symbol">:entity-db</span> db)
           resulting-entity-db (<span class="hljs-name"><span class="hljs-builtin-name">apply</span></span> dbal-fn (<span class="hljs-name"><span class="hljs-builtin-name">concat</span></span> [entity-db] rest))]
       (<span class="hljs-name"><span class="hljs-builtin-name">assoc</span></span> db <span class="hljs-symbol">:entity-db</span> resulting-entity-db))))</code></pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> insert-item (<span class="hljs-name">wrap-entity-db-mutate</span> (<span class="hljs-symbol">:insert-item</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> insert-named-item (<span class="hljs-name">wrap-entity-db-mutate</span> (<span class="hljs-symbol">:insert-named-item</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> insert-collection (<span class="hljs-name">wrap-entity-db-mutate</span> (<span class="hljs-symbol">:insert-collection</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> insert-meta (<span class="hljs-name">wrap-entity-db-mutate</span> (<span class="hljs-symbol">:insert-meta</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> append-collection (<span class="hljs-name">wrap-entity-db-mutate</span> (<span class="hljs-symbol">:append-collection</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> prepend-collection (<span class="hljs-name">wrap-entity-db-mutate</span> (<span class="hljs-symbol">:prepend-collection</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> remove-item (<span class="hljs-name">wrap-entity-db-mutate</span> (<span class="hljs-symbol">:remove-item</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> remove-named-item (<span class="hljs-name">wrap-entity-db-mutate</span> (<span class="hljs-symbol">:remove-named-item</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> remove-collection (<span class="hljs-name">wrap-entity-db-mutate</span> (<span class="hljs-symbol">:remove-collection</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> remove-meta (<span class="hljs-name">wrap-entity-db-mutate</span> (<span class="hljs-symbol">:remove-meta</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> get-item-by-id (<span class="hljs-name">wrap-entity-db-get</span> (<span class="hljs-symbol">:get-item-by-id</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> get-named-item (<span class="hljs-name">wrap-entity-db-get</span> (<span class="hljs-symbol">:get-named-item</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> get-collection (<span class="hljs-name">wrap-entity-db-get</span> (<span class="hljs-symbol">:get-collection</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> get-item-meta (<span class="hljs-name">wrap-entity-db-get</span> (<span class="hljs-symbol">:get-item-meta</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> get-named-item-meta (<span class="hljs-name">wrap-entity-db-get</span> (<span class="hljs-symbol">:get-named-item-meta</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> get-collection-meta (<span class="hljs-name">wrap-entity-db-get</span> (<span class="hljs-symbol">:get-collection-meta</span> dbal)))
-(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> vacuum (<span class="hljs-name">wrap-entity-db-mutate</span> (<span class="hljs-symbol">:vacuum</span> dbal)))</code></pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre><code class="language-clojure hljs">(<span class="hljs-string">def </span><span class="hljs-string">insert-item </span>(<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-mutate </span>(:<span class="hljs-string">insert-item </span><span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-string">insert-named-</span><span class="hljs-string">item </span>(<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-mutate </span>(:<span class="hljs-string">insert-named-</span><span class="hljs-string">item </span><span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-string">insert-collection </span>(<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-mutate </span>(:<span class="hljs-string">insert-collection </span><span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-string">insert-meta </span>(<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-mutate </span>(:<span class="hljs-string">insert-meta </span><span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-string">append-collection </span>(<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-mutate </span>(:<span class="hljs-string">append-collection </span><span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-string">prepend-collection </span>(<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-mutate </span>(:<span class="hljs-string">prepend-collection </span><span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-string">remove-item </span>(<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-mutate </span>(:<span class="hljs-string">remove-item </span><span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-string">remove-named-</span><span class="hljs-string">item </span>(<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-mutate </span>(:<span class="hljs-string">remove-named-</span><span class="hljs-string">item </span><span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-string">remove-collection </span>(<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-mutate </span>(:<span class="hljs-string">remove-collection </span><span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-string">remove-meta </span>(<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-mutate </span>(:<span class="hljs-string">remove-meta </span><span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-built_in">get-item-by-id</span> (<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-get </span>(:<span class="hljs-built_in">get-item-by-id</span> <span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-built_in">get-named-item</span> (<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-get </span>(:<span class="hljs-built_in">get-named-item</span> <span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-built_in">get-collection</span> (<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-get </span>(:<span class="hljs-built_in">get-collection</span> <span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-built_in">get-item-meta</span> (<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-get </span>(:<span class="hljs-built_in">get-item-meta</span> <span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-built_in">get-named-item-meta</span> (<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-get </span>(:<span class="hljs-built_in">get-named-item-meta</span> <span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-built_in">get-collection-meta</span> (<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-get </span>(:<span class="hljs-built_in">get-collection-meta</span> <span class="hljs-string">dbal)</span>))
+(<span class="hljs-string">def </span><span class="hljs-string">vacuum </span>(<span class="hljs-string">wrap-entity-</span><span class="hljs-string">db-mutate </span>(:<span class="hljs-string">vacuum </span><span class="hljs-string">dbal)</span>))</code></pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> update-item-by-id [db entity-kw id data]
   (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> [item (<span class="hljs-name">get-item-by-id</span> db entity-kw id)]
     (<span class="hljs-name">insert-item</span> db entity-kw (<span class="hljs-name"><span class="hljs-builtin-name">merge</span></span> item data))))</code></pre></td></tr><tr><td class="docs">
@@ -386,12 +386,12 @@ them to the functions that modify the state.</p>
   [app-db]
   (<span class="hljs-name">reaction</span>
    (<span class="hljs-name"><span class="hljs-builtin-name">get-in</span></span> @app-db [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:editing-id</span>])))</code></pre></td></tr><tr class="with-content"><td class="docs"><p>Returns the todo that is being edited.</p>
-</td><td class="codes"><pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> editing-todo
-  [app-db]
-  (<span class="hljs-name">reaction</span>
-   (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> [db @app-db
-         editing-id (<span class="hljs-name"><span class="hljs-builtin-name">get-in</span></span> db [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:editing-id</span>])]
-     (<span class="hljs-name">edb/get-item-by-id</span> @app-db <span class="hljs-symbol">:todos</span> editing-id))))</code></pre></td></tr><tr class="with-content"><td class="docs"><p>Returns the list of todos for passed status.</p>
+</td><td class="codes"><pre><code class="language-clojure hljs">(<span class="hljs-string">defn </span><span class="hljs-string">editing-todo
+</span>  [<span class="hljs-string">app-db]</span>
+  (<span class="hljs-string">reaction
+</span>   (<span class="hljs-string">let </span>[<span class="hljs-string">db </span>@<span class="hljs-string">app-db
+</span>         <span class="hljs-string">editing-id </span>(<span class="hljs-built_in">get-in</span> <span class="hljs-string">db </span>[:<span class="hljs-string">kv </span>:<span class="hljs-string">editing-id]</span>)]
+     (<span class="hljs-string">edb/</span><span class="hljs-built_in">get-item-by-id</span> @<span class="hljs-string">app-db </span>:<span class="hljs-string">todos </span><span class="hljs-string">editing-id)</span>)))</code></pre></td></tr><tr class="with-content"><td class="docs"><p>Returns the list of todos for passed status.</p>
 </td><td class="codes"><pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> todos-by-status
   [app-db status]
   (<span class="hljs-name">reaction</span>

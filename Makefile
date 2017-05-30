@@ -29,6 +29,7 @@ buildapidocs:
 	cd ../entitydb && lein codox
 	cd ../router && lein codox
 	cd ../forms && lein codox
+	cd ../keechma-toolbox && lein codox
 
 copyapidocs:
 	mkdir -p docs/api
@@ -36,6 +37,7 @@ copyapidocs:
 	cp -r ../entitydb/target/doc docs/api/entitydb
 	cp -r ../router/target/doc docs/api/router
 	cp -r ../forms/target/doc docs/api/forms
+	cp -r ../keechma-toolbox/target/doc docs/api/keechma-toolbox
 
 buildcounterdocs:
 	cd ../keechma-counter && lein marg
@@ -74,9 +76,6 @@ copyformdocs:
 
 build:
 	node index.js
-
-deploy:
-	node deploy.js
 
 copytodest:
 	rm -rf content/guides

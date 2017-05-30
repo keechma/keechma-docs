@@ -1,0 +1,249 @@
+_model: api-annotated
+---
+title: API / keechma.toolbox.dataloader.controller documentation
+---
+body:
+
+<div class="api-container">
+    
+    <div class="sidebar primary">
+        <h3 class="no-link"><span class="inner">Project</span></h3>
+        <ul class="index-link">
+            <li class="depth-1 ">
+                <a href="/api/keechma-toolbox/">
+                    <div class="inner">Index</div>
+                </a>
+            </li>
+        </ul>
+        <h3 class="no-link"><span class="inner">Namespaces</span></h3>
+        <ul>
+            <li class="depth-1">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>keechma</span></div>
+                </div>
+            </li>
+            <li class="depth-2">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>toolbox</span></div>
+                </div>
+            </li>
+            <li class="depth-3">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>dataloader</span></div>
+                </div>
+            </li>
+            <li class="depth-4 current">
+                <a href="/api/keechma-toolbox/keechma_toolbox_dataloader_controller">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
+                </a>
+            </li>
+            <li class="depth-3">
+                <div class="no-link">
+                    <div class="inner"><span class="tree" style="top: -52px;"><span class="top" style="height: 61px;"></span><span class="bottom"></span></span><span>pipeline</span></div>
+                </div>
+            </li>
+            <li class="depth-4">
+                <a href="/api/keechma-toolbox/keechma_toolbox_pipeline_controller">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
+                </a>
+            </li>
+            <li class="depth-3">
+                <a href="/api/keechma-toolbox/keechma_toolbox_ui">
+                    <div class="inner"><span class="tree" style="top: -52px;"><span class="top" style="height: 61px;"></span><span class="bottom"></span></span><span>ui</span></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar secondary">
+        <h3><a href="#top"><span class="inner">Public Vars</span></a></h3>
+        <ul>
+            <li class="depth-1">
+                <a href="#var--.3EController">
+                    <div class="inner"><span>-&gt;Controller</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-constructor">
+                    <div class="inner"><span>constructor</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-Controller">
+                    <div class="inner"><span>Controller</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-map-.3EController">
+                    <div class="inner"><span>map-&gt;Controller</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-register">
+                    <div class="inner"><span>register</span></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="namespace-docs" id="content">
+        <h1 class="anchor" id="top">keechma.toolbox.dataloader.controller</h1>
+        <div class="doc">
+            <div class="markdown"></div>
+        </div>
+        <div class="public anchor" id="var--.3EController">
+            <h3>-&gt;Controller</h3>
+            <div class="usage"><code>(-&gt;Controller dataloader)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-constructor">
+            <h3>constructor</h3>
+            <div class="usage"><code>(constructor datasources edb-schema)</code></div>
+            <div class="doc">
+                <div class="markdown">
+                    <p>Dataloader controller constructor</p>
+                </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-Controller">
+            <h3>Controller</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-map-.3EController">
+            <h3>map-&gt;Controller</h3>
+            <div class="usage"><code>(map-&gt;Controller G__13069)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-register">
+            <h3>register</h3>
+            <div class="usage"><code>(register datasources edb-schema)</code><code>(register controllers datasources edb-schema)</code></div>
+            <div class="doc">
+                <div class="markdown">
+                    <p>Registers dataloader controller to the controller map</p>
+                    <pre><code class="clojure hljs"> (<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> app
+  {<span class="hljs-symbol">:controllers</span> (<span class="hljs-name"><span class="hljs-builtin-name">-&gt;</span></span> {}
+                    (<span class="hljs-name">keechma.toolbox.dataloader.controller/register</span> datasources-map edb-schema))})
+</code></pre>
+                    <p><code>keechma.toolbox.dataloader.controller/register</code> function expects three arguments:</p>
+                    <ul>
+                        <li>controller map</li>
+                        <li>datasources map</li>
+                        <li>EDB schema</li>
+                    </ul>
+                    <p>It returns a new version of the controller map with the dataloader controller registered.</p>
+                    <p><strong>Datasources</strong></p>
+                    <p>Datasource is an abstraction of any data that is loaded from the &#x201C;outside&#x201D; world. It can be an API endpoint, local storage value or any other data that is not present in the application state.</p>
+                    <p>Dataloader allows you to declaratively list your datasources. It then determines when and how the datasources should be loaded. Datasources can be defined as a graph, where datasources can depend on other datasources. This removes
+                        any need to manually load data in the correct order. When datasources params or depenedencies change, dataloader will invalidate that datasource and reload it.</p>
+                    <p>Dataloader checks it&#x2019;s datasources on each route change. If the datasource <code>params</code> function returns a result different from the previous result, this datasource (and any datasources that depend on it) will be reloaded.</p>
+                    <p>Dataloader can be manually triggered by sending the <code>:load-data</code> command to the dataloader controller.</p>
+                    <p><strong>Example</strong></p>
+                    <pre><code class="clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> promised-datasource
+ ([] (<span class="hljs-name">promised-datasource</span> <span class="hljs-literal">nil</span>))
+ ([data]
+  (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [params]
+    (<span class="hljs-name"><span class="hljs-builtin-name">map</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [loader-params]
+           (<span class="hljs-name">p/promise</span> (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [resolve reject]
+                        (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> [value (<span class="hljs-name"><span class="hljs-builtin-name">or</span></span> data (<span class="hljs-symbol">:params</span> loader-params))]
+                          (<span class="hljs-name">js/setTimeout</span> #(<span class="hljs-name"><span class="hljs-builtin-name">resolve</span></span> value) <span class="hljs-number">1</span>)))))
+         params))))
+
+(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> simple-promised-datasource (<span class="hljs-name">promised-datasource</span>))
+
+(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> simple-datasources
+ {<span class="hljs-symbol">:jwt</span>
+  {<span class="hljs-symbol">:target</span> [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:jwt</span>]
+   <span class="hljs-symbol">:loader</span> (<span class="hljs-name">promised-datasource</span>)
+   <span class="hljs-symbol">:processor</span> (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [value datasource]
+                (<span class="hljs-name"><span class="hljs-builtin-name">str</span></span> value <span class="hljs-string">&quot;!&quot;</span>))
+   <span class="hljs-symbol">:params</span> (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [prev route _]
+             (<span class="hljs-name"><span class="hljs-builtin-name">or</span></span> (<span class="hljs-symbol">:jwt</span> route) <span class="hljs-string">&quot;JWT&quot;</span>))}
+
+  <span class="hljs-symbol">:current-user</span>
+  {<span class="hljs-symbol">:target</span> [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:user</span> <span class="hljs-symbol">:current</span>]
+   <span class="hljs-symbol">:deps</span>   [<span class="hljs-symbol">:jwt</span>]
+   <span class="hljs-symbol">:loader</span> simple-promised-datasource
+   <span class="hljs-symbol">:params</span> (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [prev route {<span class="hljs-symbol">:keys</span> [jwt]}]
+             {<span class="hljs-symbol">:jwt</span> jwt
+              <span class="hljs-symbol">:current-user-id</span> <span class="hljs-number">1</span>})}
+
+  <span class="hljs-symbol">:users</span>
+  {<span class="hljs-symbol">:target</span> [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:user</span> <span class="hljs-symbol">:list</span>]
+   <span class="hljs-symbol">:deps</span>   [<span class="hljs-symbol">:jwt</span>]
+   <span class="hljs-symbol">:loader</span> simple-promised-datasource
+   <span class="hljs-symbol">:params</span> (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [prev route {<span class="hljs-symbol">:keys</span> [jwt]}]
+             {<span class="hljs-symbol">:jwt</span> jwt
+              <span class="hljs-symbol">:users</span> [{<span class="hljs-symbol">:id</span> <span class="hljs-number">1</span>} {<span class="hljs-symbol">:id</span> <span class="hljs-number">2</span>}]})}
+
+  <span class="hljs-symbol">:current-user-favorites</span>
+  {<span class="hljs-symbol">:target</span> [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:favorites</span> <span class="hljs-symbol">:current</span>]
+   <span class="hljs-symbol">:deps</span>   [<span class="hljs-symbol">:jwt</span> <span class="hljs-symbol">:current-user</span>]
+   <span class="hljs-symbol">:loader</span> simple-promised-datasource
+   <span class="hljs-symbol">:params</span> (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [prev route {<span class="hljs-symbol">:keys</span> [jwt current-user]}]
+             {<span class="hljs-symbol">:jwt</span> jwt
+              <span class="hljs-symbol">:current-user</span> current-user
+              <span class="hljs-symbol">:favorites</span> [{<span class="hljs-symbol">:id</span> <span class="hljs-number">3</span>} {<span class="hljs-symbol">:id</span> <span class="hljs-number">4</span>}]})}})
+</code></pre>
+                    <p>A lot of stuff is happening in this example, so let&#x2019;s explain them one by one.</p>
+                    <p><code>promised-datasource</code> function is used as an example loader. The important thing to note here is that loader functions accept an array of requests. This means that you can use this function as an optimization point, a place
+                        where you can optimize the requests - remove duplicates or combine them into one request. Loader function should return a list of promises or results (these can be combined). Dataloader will wait for each promise to resolve, and
+                        then continue loading the dependent datasources.</p>
+                    <p>Datasources are registered in the map, and the key under which the datasource is registered can be used by the other datasources to depend on it.</p>
+                    <p>Each datasource map can have the following attributes:</p>
+                    <ul>
+                        <li><code>:target</code> - where to store the returned data</li>
+                        <li><code>:params</code> - function that returns the params needed to load the data</li>
+                        <li><code>:loader</code> - function that is used to load the data, this function gets a list of requests</li>
+                        <li><code>:deps</code> - list of datasources that the datasource depends on</li>
+                        <li><code>:processor</code> - function that processes the result data before it gets stored in the app-db</li>
+                    </ul>
+                    <p><strong><code>:target</code> attribute</strong></p>
+                    <p>Target attribute tells dataloader where it should store the loaded data. It has three different forms:</p>
+                    <ul>
+                        <li>general path - <code>[:kv :user]</code> - it will be stored under this path in the app-db</li>
+                        <li>EntityDB collection path - <code>[:edb/collection :user/list]</code> - If the first element of the target vector is <code>:edb/collection</code> keyword, the results will be treated as the EntityDB collection and the second element
+                            of the vector will be split on <code>/</code> to determine where this collection should be stored. If the second element of the target vector looked like <code>:user/list</code> the data would be stored in the collection named
+                            <code>:list</code> for the entity named <code>:user</code>.</li>
+                        <li>EntityDB named item - <code>[:edb/named-item :user/current]</code> - this will store the EntityDB named item, using the same rules like the EntityDB collection target to determine where the item should be stored.</li>
+                    </ul>
+                    <p><strong><code>:params</code> attribute</strong></p>
+                    <p>Params function returns the params needed to load the datasource. It receives three arguments:</p>
+                    <ul>
+                        <li>previously loaded value</li>
+                        <li>current route</li>
+                        <li>datasource dependencies</li>
+                    </ul>
+                    <p>This function is called to determine the current datasource state. If the returned value is different from the previously returned value, the datasource will be reloaded. Loader function receives the params, and it has to make sense
+                        of it. Even if your params fn returns <code>nil</code>, loader function will be called. It is loader function&#x2019;s responsobility to decide what the returned params mean.</p>
+                    <p><strong><code>:loader</code></strong> attribute:</p>
+                    <p>Loader function is responsible for the data loading. This is where you should place your AJAX request functions. Loader function will receive a vector of requests (one element for each &#x201C;triggered&#x201D; datasource). Each request comes from
+                        a datasource, and it contains the following attributes:</p>
+                    <ul>
+                        <li><code>:params</code> - value returned from the &#x201C;params&#x201D; function</li>
+                        <li><code>:prev</code> - previously loaded value</li>
+                        <li><code>:datasource</code> - key under which the datasource is registered</li>
+                        <li><code>:app-db</code> - current app-db state</li>
+                        <li><code>:target</code> - path where data will be stored in the app-db</li>
+                    </ul>
+                    <p>Loader function should return a vector (one item for each request). Values in the returned vector can be either promises or resolved values.</p>
+                    <p><strong>Manually triggering the Dataloader</strong></p>
+                    <p>In some cases you will want to manually trigger the dataloader without the route change. For instance you might obtain a JWT token as a result of some user&#x2019;s action, and then reload all datasources that depend on it. Dataloader controller
+                        can manually trigger the dataloader. You can achieve this by sending the <code>:load-data</code> command to the dataloader controller:</p>
+                    <pre><code class="clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">ns</span></span> some.namespace
+  (<span class="hljs-symbol">:require</span> [keechma.toolbox.dataloader.core <span class="hljs-symbol">:as</span> dataloader]
+        [keechma.controller <span class="hljs-symbol">:as</span> controller]))
+
+(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> trigger-dataloader [ctrl]
+  (<span class="hljs-name">controller/send-command</span> ctrl [dataloader/id-key <span class="hljs-symbol">:load-data</span>])) <span class="hljs-comment">;; dataloader controller will be registered under the dataloader/id-key keyword</span>
+</code></pre>
+                    <p>This will reload all invalidated datasources.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
