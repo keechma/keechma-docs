@@ -1,0 +1,430 @@
+_model: api-annotated
+---
+title: API / keechma.toolbox.pipeline.core documentation
+---
+body:
+
+<div class="api-container">
+    
+    <div class="sidebar primary">
+        <h3 class="no-link"><span class="inner">Project</span></h3>
+        <ul class="index-link">
+            <li class="depth-1 ">
+                <a href="/api/keechma-toolbox/">
+                    <div class="inner">Index</div>
+                </a>
+            </li>
+        </ul>
+        <h3 class="no-link"><span class="inner">Namespaces</span></h3>
+        <ul>
+            <li class="depth-1">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>keechma</span></div>
+                </div>
+            </li>
+            <li class="depth-2">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>toolbox</span></div>
+                </div>
+            </li>
+            <li class="depth-3">
+                <div class="no-link">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>dataloader</span></div>
+                </div>
+            </li>
+            <li class="depth-4 branch">
+                <a href="/api/keechma-toolbox/keechma_toolbox_dataloader_controller">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
+                </a>
+            </li>
+            <li class="depth-4">
+                <a href="/api/keechma-toolbox/keechma_toolbox_dataloader_subscriptions">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>subscriptions</span></div>
+                </a>
+            </li>
+            <li class="depth-3">
+                <div class="no-link">
+                    <div class="inner"><span class="tree" style="top: -83px;"><span class="top" style="height: 92px;"></span><span class="bottom"></span></span><span>pipeline</span></div>
+                </div>
+            </li>
+            <li class="depth-4 branch">
+                <a href="/api/keechma-toolbox/keechma_toolbox_pipeline_controller">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
+                </a>
+            </li>
+            <li class="depth-4 current">
+                <a href="/api/keechma-toolbox/keechma_toolbox_pipeline_core">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>core</span></div>
+                </a>
+            </li>
+            <li class="depth-3">
+                <a href="/api/keechma-toolbox/keechma_toolbox_ui">
+                    <div class="inner"><span class="tree" style="top: -83px;"><span class="top" style="height: 92px;"></span><span class="bottom"></span></span><span>ui</span></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar secondary">
+        <h3><a href="#top"><span class="inner">Public Vars</span></a></h3>
+        <ul>
+            <li class="depth-1">
+                <a href="#var--.3ECommitSideffect">
+                    <div class="inner"><span>-&gt;CommitSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var--.3EDoSideffect">
+                    <div class="inner"><span>-&gt;DoSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var--.3EError">
+                    <div class="inner"><span>-&gt;Error</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var--.3EExecuteSideffect">
+                    <div class="inner"><span>-&gt;ExecuteSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var--.3ERedirectSideffect">
+                    <div class="inner"><span>-&gt;RedirectSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var--.3ESendCommandSideffect">
+                    <div class="inner"><span>-&gt;SendCommandSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-commit.21">
+                    <div class="inner"><span>commit!</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-CommitSideffect">
+                    <div class="inner"><span>CommitSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-do.21">
+                    <div class="inner"><span>do!</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-DoSideffect">
+                    <div class="inner"><span>DoSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-Error">
+                    <div class="inner"><span>Error</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-execute.21">
+                    <div class="inner"><span>execute!</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-ExecuteSideffect">
+                    <div class="inner"><span>ExecuteSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-ISideffect">
+                    <div class="inner"><span>ISideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-2">
+                <a href="#var-call.21">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>call!</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-map-.3ECommitSideffect">
+                    <div class="inner"><span>map-&gt;CommitSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-map-.3EDoSideffect">
+                    <div class="inner"><span>map-&gt;DoSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-map-.3EError">
+                    <div class="inner"><span>map-&gt;Error</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-map-.3EExecuteSideffect">
+                    <div class="inner"><span>map-&gt;ExecuteSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-map-.3ERedirectSideffect">
+                    <div class="inner"><span>map-&gt;RedirectSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-map-.3ESendCommandSideffect">
+                    <div class="inner"><span>map-&gt;SendCommandSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-pipeline.21">
+                    <div class="inner"><span>pipeline!</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-pipeline-errors">
+                    <div class="inner"><span>pipeline-errors</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-redirect.21">
+                    <div class="inner"><span>redirect!</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-RedirectSideffect">
+                    <div class="inner"><span>RedirectSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-send-command.21">
+                    <div class="inner"><span>send-command!</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-SendCommandSideffect">
+                    <div class="inner"><span>SendCommandSideffect</span></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="namespace-docs" id="content">
+        <h1 class="anchor" id="top">keechma.toolbox.pipeline.core</h1>
+        <div class="doc">
+            <div class="markdown"></div>
+        </div>
+        <div class="public anchor" id="var--.3ECommitSideffect">
+            <h3>-&gt;CommitSideffect</h3>
+            <div class="usage"><code>(-&gt;CommitSideffect value cb)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var--.3EDoSideffect">
+            <h3>-&gt;DoSideffect</h3>
+            <div class="usage"><code>(-&gt;DoSideffect sideffects)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var--.3EError">
+            <h3>-&gt;Error</h3>
+            <div class="usage"><code>(-&gt;Error type message payload cause)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var--.3EExecuteSideffect">
+            <h3>-&gt;ExecuteSideffect</h3>
+            <div class="usage"><code>(-&gt;ExecuteSideffect command payload)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var--.3ERedirectSideffect">
+            <h3>-&gt;RedirectSideffect</h3>
+            <div class="usage"><code>(-&gt;RedirectSideffect params)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var--.3ESendCommandSideffect">
+            <h3>-&gt;SendCommandSideffect</h3>
+            <div class="usage"><code>(-&gt;SendCommandSideffect command payload)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-commit.21">
+            <h3>commit!</h3>
+            <div class="usage"><code>(commit! value)</code><code>(commit! value cb)</code></div>
+            <div class="doc">
+                <div class="markdown">
+                    <p>Commit pipeline sideffect.</p>
+                    <p>Accepts <code>value</code> or <code>value</code> and <code>callback</code> as arguments. Value should be a new version of app-db.</p>
+                    <pre><code class="clojure hljs">(<span class="hljs-name">commit!</span> (<span class="hljs-name">assoc-in</span> app-db [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:user</span>] {<span class="hljs-symbol">:username</span> <span class="hljs-string">&quot;retro&quot;</span>}))
+
+</code></pre>
+                    <p>If the callback argument is present, this function will be called immediately after the app-db-atom is updated. This is useful if you want to force Reagent to re-render the screen.</p>
+                </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-CommitSideffect">
+            <h3>CommitSideffect</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-do.21">
+            <h3>do!</h3>
+            <div class="usage"><code>(do! &amp; sideffects)</code></div>
+            <div class="doc">
+                <div class="markdown">
+                    <p>Runs multiple sideffects sequentially:</p>
+                    <pre><code class="clojure hljs">(<span class="hljs-name">do!</span>
+  (<span class="hljs-name">commit!</span> (<span class="hljs-name">assoc-in</span> app-db [<span class="hljs-symbol">:kv</span> <span class="hljs-symbol">:current-user</span>] value))
+  (<span class="hljs-name">redirect!</span> {<span class="hljs-symbol">:page</span> <span class="hljs-string">&quot;user&quot;</span> <span class="hljs-symbol">:id</span> (<span class="hljs-symbol">:id</span> user)}))
+</code></pre></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-DoSideffect">
+            <h3>DoSideffect</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-Error">
+            <h3>Error</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-execute.21">
+            <h3>execute!</h3>
+            <div class="usage"><code>(execute! command payload)</code></div>
+            <div class="doc">
+                <div class="markdown">
+                    <p>Execute pipeline sideffect.</p>
+                    <p>Accepts <code>command</code> and <code>payload</code> arguments. Use this if you want to execute a command on the current controller.</p>
+                </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-ExecuteSideffect">
+            <h3>ExecuteSideffect</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-ISideffect">
+            <h3>ISideffect</h3>
+            <h4 class="type">protocol</h4>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+            <div class="members">
+                <h4>members</h4>
+                <div class="inner">
+                    <div class="public anchor" id="var-call.21">
+                        <h3>call!</h3>
+                        <div class="usage"><code>(call! this controller app-db-atom)</code></div>
+                        <div class="doc">
+                            <div class="markdown"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-map-.3ECommitSideffect">
+            <h3>map-&gt;CommitSideffect</h3>
+            <div class="usage"><code>(map-&gt;CommitSideffect G__13772)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-map-.3EDoSideffect">
+            <h3>map-&gt;DoSideffect</h3>
+            <div class="usage"><code>(map-&gt;DoSideffect G__13800)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-map-.3EError">
+            <h3>map-&gt;Error</h3>
+            <div class="usage"><code>(map-&gt;Error G__13765)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-map-.3EExecuteSideffect">
+            <h3>map-&gt;ExecuteSideffect</h3>
+            <div class="usage"><code>(map-&gt;ExecuteSideffect G__13786)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-map-.3ERedirectSideffect">
+            <h3>map-&gt;RedirectSideffect</h3>
+            <div class="usage"><code>(map-&gt;RedirectSideffect G__13793)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-map-.3ESendCommandSideffect">
+            <h3>map-&gt;SendCommandSideffect</h3>
+            <div class="usage"><code>(map-&gt;SendCommandSideffect G__13779)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-pipeline.21">
+            <h3>pipeline!</h3>
+            <h4 class="type">macro</h4>
+            <div class="usage"><code>(pipeline! args &amp; body)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-pipeline-errors">
+            <h3>pipeline-errors</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-redirect.21">
+            <h3>redirect!</h3>
+            <div class="usage"><code>(redirect! params)</code></div>
+            <div class="doc">
+                <div class="markdown">
+                    <p>Redirect pipeline sideffect.</p>
+                    <p>Accepts <code>params</code> argument. Page will be redirected to a new URL which will be generated from the passed in params argument. If you need to access the current route data, it is present in the pipeline <code>app-db</code>                        argument under the <code>[:route :data]</code> path.</p>
+                </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-RedirectSideffect">
+            <h3>RedirectSideffect</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-send-command.21">
+            <h3>send-command!</h3>
+            <div class="usage"><code>(send-command! command payload)</code></div>
+            <div class="doc">
+                <div class="markdown">
+                    <p>Send command pipeline sideffect.</p>
+                    <p>Accepts <code>command</code> and <code>payload</code> arguments. Command should be a vector where first element is the controller topic, and the second element is the command name. </p>
+                </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-SendCommandSideffect">
+            <h3>SendCommandSideffect</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+    </div>
+</div>

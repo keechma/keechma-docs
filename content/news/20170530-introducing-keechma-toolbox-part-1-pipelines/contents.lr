@@ -12,7 +12,7 @@ twitter_handle: mihaelkonjevic
 ---
 body:
 
-In this blog post I want to introduce the [Keechma Toolbox Library](https://github.com/keechma/keechma-toolbox) - a set of tools I've been using while developing Keechma apps. While Keechma, the framework is pretty agnostic when it comes to implementation, the Toolbox lib is heavily opinionated and contains code that I'm using every day.
+In this blog post I want to introduce the [Keechma Toolbox Library](https://github.com/keechma/keechma-toolbox) - a set of tools I've been using while developing Keechma apps. While Keechma the framework is pretty agnostic when it comes to implementation, the Toolbox lib is heavily opinionated and contains code that I'm using every day.
 
 There is a possiblity that some of the stuff will end up in the separate packages, but right now it's all together because it's easier to develop and manage.
 

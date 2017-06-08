@@ -1,0 +1,265 @@
+title: Introducing Keechma Toolbox (Part 2) - Dataloader
+---
+_slug: introducing-keechma-toolbox-part-2-dataloader
+---
+pub_date: 2017-06-08
+---
+author: Mihael Konjević
+---
+gravatar: 9976060bfb26220dd042340394d06b31
+---
+twitter_handle: mihaelkonjevic
+---
+body:
+
+Loading data from the back-end is a problem that every front-end app has to solve. Complex apps have to load data from multiple (sometimes more than the [magical number seven](https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two)) endpoints for some screens.
+
+In such situations, several problematic question arise:
+
+1. How to define dependencies between data sources?
+2. When to invalidate loaded data?
+3. How to keep the data loading performant?
+
+Why are these questions important at all? Why not do it all manually?
+
+## The right way to load the right data at the right time (with very little ceremony)
+
+The foundational idea of Keechma is that state should be route driven. The route can be thought of as the **minimal representation of state**. This makes the process of loading components, controllers and data predictable and deterministic.
+
+### 1) Data source definitions
+
+Most Keechma controllers (in our experience) end up having a lot of boilerplate code for loading data. It would be better if there was a **specialized construct for defining a way to load data.** That way you could define all you data requirements upfront and keep you controllers nice and clean.
+
+### 2) Dependency management
+
+A screen can depend on multiple sources of data to render itself. Sometimes you need to wait for a piece of data before you can load the next one. Asynchronous nature of these requests invites some sort of explicit dependency management. **Requests can be managed manually, but why not introduce some structure into this process?**
+
+### 3) Data invalidation
+
+Sometimes, an event that doesn't change the route can create "tectonic" changes in the app. For instance, the user logs in. Now you have to fetch all user related data anew and replace old data with current user's data. **You want to load the relevant data along with all dependencies and you also want the old data to die.**
+
+### 4) Request boxing
+
+The fact that a screen depends on multiple data sources (ideally) shouldn't require sending multiple requests. Before sending out the requests, we could box them into one request and unpack the response. **Wanting to make as few requests possible is a no brainer proposition.**
+
+## Keechma Dataloader vs. other approaches to data-loading
+
+*Relay* and similar frameworks approach this problem on the component level:
+
+> Relay couples React with GraphQL and develops the idea of encapsulation further. It allows components to specify what data they need and the Relay framework provides the data. This makes the data needs of inner components opaque and allows composition of those needs. Thinking about what data an app needs becomes localized to the component making it easier to reason about what fields are needed or no longer needed.
+
+Other approaches like [Om.next](https://github.com/omcljs/om/) which don't couple to a back-end technology (GraphQL), but follow the similar philosophy where components load the data they need.
+
+I decided to take a different approach with Dataloader. Instead of components being responsible for the declaration of the data they need, this information is derived from the route.
+
+Choosing an approach implies that there is a trade-off (as there always is):
+
+- In the component/query collocation case (Relay, Om.next) you can easily determine the data that the each component needs
+- In the route case (Keechma) you can easily determine the data that the application needs as a whole
+
+Dataloader's goal is to give you the best of the component based thinking - declarative approach to data loading - while being able to easily reason about the whole app.
+
+## The way of Dataloader
+
+At its heart, Dataloader is route driven - it will automatically run on each route change. You can also run it manually if there is a need to do so. It is an optional addition to Keechma, and you can combine it with an imperative approach.
+
+Dataloader requires you to define your data-sources and when and how they should be loaded.
+
+Here's a simple datasource example:
+
+```clojure
+(def datasources
+	{:states
+		{:target  [:edb/collection :restaurants/list]
+     :loader  (map-loader
+		           (fn [req]
+		             (when (:params req)
+	                 (GET "/restaurants"))))
+     :params  (fn [prev {:keys [page]} deps]
+	              (when (= "restaurants" page) true))}
+```
+
+On each route change (or manual run), Dataloader will call the `:params` function for each datasource and check if the returned params are different from the previously returned value. If it is, Dataloader will call the `:loader` function which makes the actual request for the data, and store it wherever the `:target` attribute points to.
+
+From the shown example we can determine the following:
+
+- `:params` function will return `true` only if the route's `:page` param equals to "restaurants"
+- `:loader` checks if the params function returned a truthy value, and if it did it makes an AJAX request to the `/restaurants` endpoint
+- returned data will be stored as an EntityDB collection named `:list`, under the `:restaurants` entity
+
+`:loader` function will be called even if the `:params` function returns `nil` - it is up to the loader to give meaning to the value returned from the `:params` function. If the `:loader` function returns `nil` for a datasource - the currently loaded data will be removed from the app state.
+
+Although this is a super simple example, it still has all of the important elements of data loading - when and how the data should be loaded.
+
+Another thing that is important to point out is that the loader function is wrapped with the `map-loader` helper. `map-loader` is a function that calls the `loader` function for each data source request.
+
+When Dataloader loads the data it will try to load as much data as possible at once. First it will collect all the requests (which are determined from the `:params` function return value), and then it will call the `:loader` function with a vector which contains all the requests that can be made at once. This allows you to combine multiple data requests into one HTTP call if your backend supports it - as is the case with GraphQL. We'll talk more about this feature later in the article.
+
+### Data dependencies
+
+Depending on your app, and it's business logic, you might have dependencies between the data sources. JWT or some other token auth systems is one of the examples where you have dependencies between datasources.
+
+In the following example we can see how datasources look when a datasource needs a token to make the request:
+
+```clojure
+(def access-token-loader
+  (map-loader
+   (fn [_]
+     (get-item local-storage "whenhub-access-token"))))
+
+(def ignore-datasource
+  :keechma.toolbox.dataloader.core/ignore)
+
+(def datasources
+  {:access-token {:target [:kv :access-token]
+                  :loader access-token-loader
+                  :params (fn [prev _ _]
+                            (when prev
+                              ignore-datasource))}
+
+   :schedules {:target [:edb/collection :schedule/list]
+               :deps [:access-token]
+               :params (fn [prev route deps]
+                         (when (and (= "edit" (:page route))
+                                    (nil? (:id route)))
+                           deps))
+               :loader (map-loader
+                         (fn [req]
+                           (when-let [access-token (get-in req [:params :access-token])]
+                             (load-schedules access-token))))}})
+```
+
+* *This example is taken from the https://github.com/retro/confeedence app where you can see the Dataloader in action*
+
+In the previous example, we can see that the `:schedules` datasource has a `:deps` attribute. `:deps` allow you to list dependencies which need to be resolved before the datasource is loaded. In the `:schedules` datasource case it's `:params` function checks if the `:page` route param equals to "edit" and if the `:id` route param is `nil`. In that case it just returns the dependencies object. The `:loader` function checks if the `:access-token` is present in the params map, and if it is, it makes the request to load the schedules.
+
+There is more interesting stuff to see in this example. For instance, the `:access-token` datasource loads it's data from the local storage - Dataloader doesn't care where you load the data from.
+
+Another interesting thing to notice is that `:access-token` `:params` function returns `:keechma.toolbox.dataloader.core/ignore` if the previous value exists. This tells the Dataloader that it shouldn't do anything with that datasource, whatever is stored in the app state is good enough.
+
+### Optimizing the loader
+
+GraphQL and Dataloader are a match made in heaven. Since GraphQL allows you to request multiple data sources in one HTTP request, you can easily write a loader function which is very efficient.
+
+Here's an example of that behaviour:
+
+```clojure
+(ns graphql-starwars.datasources
+  (:require [graphql-builder.parser :refer-macros [defgraphql]]
+            [graphql-builder.core :as gql-core]
+            [promesa.core :as p]
+            [keechma.toolbox.ajax :refer [POST]]
+            [clojure.string :as str]))
+
+(defgraphql graphql "resources/graphql/queries.graphql")
+
+(def gql-endpoint "https://swapi.apis.guru/")
+
+(defn gql-results-handler [unpack]
+  (fn [{:keys [data errors]}]
+    (if errors
+      (throw (ex-info "GraphQLError" errors))
+      (unpack data))))
+
+(defn gql-req [params]
+  (->> (POST gql-endpoint
+             {:format :json
+              :params (:graphql params)
+              :response-format :json
+              :keywords? true})
+       (p/map (gql-results-handler (:unpack params)))))
+
+(defn graphql-loader [reqs]
+  (let [params (map (fn [req] (when (:params req) (assoc (:params req) :id (keyword (gensym "req"))))) reqs)
+        clean-params (remove nil? params)]
+    (if (seq clean-params)
+      (let [queries (reduce (fn [acc p] (assoc acc (:id p) (:query p))) {} clean-params)
+            variables (reduce (fn [acc p] (assoc acc (:id p) (:variables p))) {} clean-params)
+            composed-fn (gql-core/composed-query graphql queries)
+            req-promise (gql-req (composed-fn variables))]
+           (map (fn [param]
+                  (when param
+                    (p/map #(get % (:id param)) req-promise))) params))
+      params)))
+
+(defn result-extract [resource]
+  (let [query-name (str "all" (str/capitalize resource))]
+    (fn [res]
+      {:meta {:count (get-in res [query-name :totalCount])}
+       :data (get-in res [query-name (keyword resource)])})))
+
+(defn make-params [resource]
+  (fn [_ {:keys [columns]} _]
+    (when (contains? (set columns) resource)
+      {:query (str "Load" (str/capitalize resource))
+       :variables {}})))
+
+(def datasources
+  {:films {:target    [:edb/collection :film/list]
+           :params    (make-params "films")
+           :loader    graphql-loader
+           :processor (result-extract "films")}
+
+   :species {:target    [:edb/collection :species/list]
+             :params    (make-params "species")
+             :loader    graphql-loader
+             :processor (result-extract "species")}
+
+   :starships {:target    [:edb/collection :starship/list]
+               :params    (make-params "starships")
+               :loader    graphql-loader
+               :processor (result-extract "starships")}
+
+   :people {:target    [:edb/collection :person/list]
+            :params    (make-params "people")
+            :loader    graphql-loader
+            :processor (result-extract "people")}
+
+   :planets {:target    [:edb/collection :planet/list]
+             :params    (make-params "planets")
+             :loader    graphql-loader
+             :processor (result-extract "planets")}
+
+   :vehicles {:target    [:edb/collection :vehicle/list]
+              :params    (make-params "vehicles")
+              :loader    graphql-loader
+              :processor (result-extract "vehicles")}})
+
+```
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dZaY1kZwpmw" frameborder="0" allowfullscreen></iframe>
+
+Watch the video if you’re interested in the thorough explanation of the code, but the important thing is that you get the request optimization for free - datasources don’t have to know that their data request will be combined with others.
+
+## Dataloader and Keechma architecture
+
+Dataloader is a pretty new addition to the [Keechma Toolbox](https://github.com/keechma/keechma-toolbox) library, but it had a very profound effect on the architecture of the apps that we build.
+
+Instead of the manual management of data loading, which required a lot of boilerplate code and a lot of controllers, Dataloader allows us to extract this code and contain it in one place. It also allows us to have a high level overview of application's data needs which becomes extremely important as the application grows in size.
+
+Dataloader is probably the most important library I've released after Keechma itself, and in my opinion it gives you the best of both worlds - Relay and Redux like architectures.
+
+---
+body2:
+We're working hard on the v1 release, and if you want to keep track of Keechma news and releases, subscribe to our newsletter:
+
+<!-- Begin MailChimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="//retroaktive.us8.list-manage.com/subscribe/post?u=0fd70cfbc61d34de3b89963e9&amp;id=d4250786aa" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to Keechma mailing list</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_0fd70cfbc61d34de3b89963e9_d4250786aa" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->

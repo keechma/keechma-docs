@@ -32,24 +32,34 @@ body:
                     <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>dataloader</span></div>
                 </div>
             </li>
-            <li class="depth-4">
+            <li class="depth-4 branch">
                 <a href="/api/keechma-toolbox/keechma_toolbox_dataloader_controller">
                     <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
                 </a>
             </li>
+            <li class="depth-4">
+                <a href="/api/keechma-toolbox/keechma_toolbox_dataloader_subscriptions">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>subscriptions</span></div>
+                </a>
+            </li>
             <li class="depth-3">
                 <div class="no-link">
-                    <div class="inner"><span class="tree" style="top: -52px;"><span class="top" style="height: 61px;"></span><span class="bottom"></span></span><span>pipeline</span></div>
+                    <div class="inner"><span class="tree" style="top: -83px;"><span class="top" style="height: 92px;"></span><span class="bottom"></span></span><span>pipeline</span></div>
                 </div>
             </li>
-            <li class="depth-4">
+            <li class="depth-4 branch">
                 <a href="/api/keechma-toolbox/keechma_toolbox_pipeline_controller">
                     <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
                 </a>
             </li>
+            <li class="depth-4">
+                <a href="/api/keechma-toolbox/keechma_toolbox_pipeline_core">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>core</span></div>
+                </a>
+            </li>
             <li class="depth-3">
                 <a href="/api/keechma-toolbox/keechma_toolbox_ui">
-                    <div class="inner"><span class="tree" style="top: -52px;"><span class="top" style="height: 61px;"></span><span class="bottom"></span></span><span>ui</span></div>
+                    <div class="inner"><span class="tree" style="top: -83px;"><span class="top" style="height: 92px;"></span><span class="bottom"></span></span><span>ui</span></div>
                 </a>
             </li>
         </ul>
@@ -80,6 +90,19 @@ body:
             </div>
         </div>
         <div class="namespace">
+            <h3><a href="keechma_toolbox_dataloader_subscriptions">keechma.toolbox.dataloader.subscriptions</a></h3>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+            <div class="index">
+                <p>Public variables and functions:</p>
+                <ul>
+                    <li> <a href="keechma_toolbox_dataloader_subscriptions#var-make-subscriptions">make-subscriptions</a> </li>
+                    <li> <a href="keechma_toolbox_dataloader_subscriptions#var-map-loader">map-loader</a> </li>
+                </ul>
+            </div>
+        </div>
+        <div class="namespace">
             <h3><a href="keechma_toolbox_pipeline_controller">keechma.toolbox.pipeline.controller</a></h3>
             <div class="doc">
                 <div class="markdown"></div>
@@ -91,6 +114,43 @@ body:
                     <li> <a href="keechma_toolbox_pipeline_controller#var-constructor">constructor</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_controller#var-map-.3EPipelineController">map-&gt;PipelineController</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_controller#var-PipelineController">PipelineController</a> </li>
+                </ul>
+            </div>
+        </div>
+        <div class="namespace">
+            <h3><a href="keechma_toolbox_pipeline_core">keechma.toolbox.pipeline.core</a></h3>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+            <div class="index">
+                <p>Public variables and functions:</p>
+                <ul>
+                    <li> <a href="keechma_toolbox_pipeline_core#var--.3ECommitSideffect">-&gt;CommitSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var--.3EDoSideffect">-&gt;DoSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var--.3EError">-&gt;Error</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var--.3EExecuteSideffect">-&gt;ExecuteSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var--.3ERedirectSideffect">-&gt;RedirectSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var--.3ESendCommandSideffect">-&gt;SendCommandSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-commit.21">commit!</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-CommitSideffect">CommitSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-do.21">do!</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-DoSideffect">DoSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-Error">Error</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-execute.21">execute!</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-ExecuteSideffect">ExecuteSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-ISideffect">ISideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-map-.3ECommitSideffect">map-&gt;CommitSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-map-.3EDoSideffect">map-&gt;DoSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-map-.3EError">map-&gt;Error</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-map-.3EExecuteSideffect">map-&gt;ExecuteSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-map-.3ERedirectSideffect">map-&gt;RedirectSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-map-.3ESendCommandSideffect">map-&gt;SendCommandSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-pipeline.21">pipeline!</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-pipeline-errors">pipeline-errors</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-redirect.21">redirect!</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-RedirectSideffect">RedirectSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-send-command.21">send-command!</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-SendCommandSideffect">SendCommandSideffect</a> </li>
                 </ul>
             </div>
         </div>

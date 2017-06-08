@@ -1,6 +1,6 @@
 _model: api-annotated
 ---
-title: API / Entitydb 0.1.0
+title: API / Entitydb 0.1.1
 ---
 body:
 
@@ -25,13 +25,13 @@ body:
         </ul>
     </div>
     <div class="namespace-index" id="content">
-        <h1><span class="project-title"><span class="project-name">Entitydb</span> <span class="project-version">0.1.0</span></span>
+        <h1><span class="project-title"><span class="project-name">Entitydb</span> <span class="project-version">0.1.1</span></span>
         </h1>
         <div class="doc">
             <p>EntityDB - In memory entity store for ClojureScript applications.</p>
         </div>
         <h2>Installation</h2>
-        <p>To install, add the following dependency to your project or build file:</p><div class="pre-deps-wrap"><pre class="deps">[keechma/entitydb &quot;0.1.0&quot;]</pre></div>
+        <p>To install, add the following dependency to your project or build file:</p><div class="pre-deps-wrap"><pre class="deps">[keechma/entitydb &quot;0.1.1&quot;]</pre></div>
         <h2>Namespaces</h2>
         <div class="namespace">
             <h3><a href="entitydb_core">entitydb.core</a></h3>

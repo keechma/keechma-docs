@@ -32,24 +32,34 @@ body:
                     <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>dataloader</span></div>
                 </div>
             </li>
-            <li class="depth-4 current">
+            <li class="depth-4 branch current">
                 <a href="/api/keechma-toolbox/keechma_toolbox_dataloader_controller">
                     <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
                 </a>
             </li>
+            <li class="depth-4">
+                <a href="/api/keechma-toolbox/keechma_toolbox_dataloader_subscriptions">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>subscriptions</span></div>
+                </a>
+            </li>
             <li class="depth-3">
                 <div class="no-link">
-                    <div class="inner"><span class="tree" style="top: -52px;"><span class="top" style="height: 61px;"></span><span class="bottom"></span></span><span>pipeline</span></div>
+                    <div class="inner"><span class="tree" style="top: -83px;"><span class="top" style="height: 92px;"></span><span class="bottom"></span></span><span>pipeline</span></div>
                 </div>
             </li>
-            <li class="depth-4">
+            <li class="depth-4 branch">
                 <a href="/api/keechma-toolbox/keechma_toolbox_pipeline_controller">
                     <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>controller</span></div>
                 </a>
             </li>
+            <li class="depth-4">
+                <a href="/api/keechma-toolbox/keechma_toolbox_pipeline_core">
+                    <div class="inner"><span class="tree"><span class="top"></span><span class="bottom"></span></span><span>core</span></div>
+                </a>
+            </li>
             <li class="depth-3">
                 <a href="/api/keechma-toolbox/keechma_toolbox_ui">
-                    <div class="inner"><span class="tree" style="top: -52px;"><span class="top" style="height: 61px;"></span><span class="bottom"></span></span><span>ui</span></div>
+                    <div class="inner"><span class="tree" style="top: -83px;"><span class="top" style="height: 92px;"></span><span class="bottom"></span></span><span>ui</span></div>
                 </a>
             </li>
         </ul>
