@@ -12,7 +12,7 @@ twitter_handle: mihaelkonjevic
 ---
 body:
 
-Loading data from the back-end is a problem that every front-end app has to solve. Complex apps have to load data from multiple (sometimes more than the [magical number seven](https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two)) endpoints for some screens.
+Loading data from the back-end is a problem that every front-end app has to solve. Complex apps have to load data from multiple (sometimes even more than the [magical number seven](https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two)) endpoints for some screens.
 
 In such situations, several problematic question arise:
 
@@ -28,11 +28,11 @@ The foundational idea of Keechma is that state should be route driven. The route
 
 ### 1) Data source definitions
 
-Most Keechma controllers (in our experience) end up having a lot of boilerplate code for loading data. It would be better if there was a **specialized construct for defining a way to load data.** That way you could define all you data requirements upfront and keep you controllers nice and clean.
+Most Keechma controllers (in our experience) end up having a lot of boilerplate code for loading data. It would be better if there was a **specialized construct for defining a way to load data.** That way you could define all you data requirements upfront and keep your controllers nice and clean.
 
 ### 2) Dependency management
 
-A screen can depend on multiple sources of data to render itself. Sometimes you need to wait for a piece of data before you can load the next one. Asynchronous nature of these requests invites some sort of explicit dependency management. **Requests can be managed manually, but why not introduce some structure into this process?**
+A screen can depend on multiple sources of data to render itself. Sometimes you need to wait for a piece of data before you can load the next one. The asynchronous nature of these requests lends itself to explicit dependency management. **Requests can be managed manually, but why not introduce some structure into this process?**
 
 ### 3) Data invalidation
 
