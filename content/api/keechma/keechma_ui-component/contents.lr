@@ -103,6 +103,11 @@ body:
                 </a>
             </li>
             <li class="depth-1">
+                <a href="#var-make-ex">
+                    <div class="inner"><span>make-ex</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
                 <a href="#var-map-.3EUIComponent">
                     <div class="inner"><span>map-&gt;UIComponent</span></div>
                 </a>
@@ -213,7 +218,7 @@ body:
                     </div>
                     <div class="public anchor" id="var-report">
                         <h3>report</h3>
-                        <div class="usage"><code>(report this name payload)</code><code>(report this name payload severity)</code></div>
+                        <div class="usage"><code>(report this name payload)</code><code>(report this name payload path)</code><code>(report this name payload path severity)</code></div>
                         <div class="doc">
                             <div class="markdown"></div>
                         </div>
@@ -257,9 +262,16 @@ body:
                 </div>
             </div>
         </div>
+        <div class="public anchor" id="var-make-ex">
+            <h3>make-ex</h3>
+            <div class="usage"><code>(make-ex msg)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
         <div class="public anchor" id="var-map-.3EUIComponent">
             <h3>map-&gt;UIComponent</h3>
-            <div class="usage"><code>(map-&gt;UIComponent G__12746)</code></div>
+            <div class="usage"><code>(map-&gt;UIComponent G__14575)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>

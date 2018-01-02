@@ -1,0 +1,172 @@
+title: Hello world app in Keechma (with routing)
+---
+_slug: hello-world-app-in-keechma-with-routing
+---
+pub_date: 2017-06-30
+---
+author: Mihael Konjević
+---
+gravatar: 9976060bfb26220dd042340394d06b31
+---
+twitter_handle: mihaelkonjevic
+---
+body:
+
+In this blogpost we'll implement a simple - "hello world" level - app with Keechma that will introduce you to the Keechma router.  Instead of printing the static "Hello World!" string, we'll write the app that can greet you by name.
+
+App functionality can be defined like this:
+
+1. User can enter their name in the input box
+2. As the user is entering their name it's stored in the URL (like `?name=user-name`)
+3. Application reads the value from the URL and displays the message ("Hello user-name")
+
+Routes in Keechma are used as the minimal representation of the application state, and route data in Keechma is reactive - whenever the URL changes the router converts the URL into a Clojure map and stores it in the app DB.
+
+Since we haven't defined any route patterns, the router will serialize the route params into the URL query params - that's why the URL will look like `?name=user-name`.
+
+
+## Component
+
+Here's the complete component code:
+
+```clojure
+(defn hello-world-routing-render [ctx]
+  (let [current-name (or (get-in @(ui/current-route ctx) [:data :name]) "")]
+    [:div
+     [:label {:for "name"} "Enter your name"]
+     [:div
+      [:input
+       {:id "name"
+        :on-change (fn [e] (ui/redirect ctx {:name (.-value (.-target e))}))
+        :value current-name}]]
+
+     (when (seq current-name)
+       [:h1 (str "Hello " current-name)])]))
+```
+
+First thing that you may notice is that the renderer function accepts an argument called `ctx`. This argument is passed to each component (unless it's a pure component, but we'll get to that later) and it's purpose is to connect the component with the rest of the app.
+
+Here we can see one of the core Keechma principles in action - **no globals**. Instead of depending on a (shared) global variable to communicate with the rest of the app, Keechma provides each component with their own view of the world. When the application is started, each component gets the `ctx` argument partially applied. Whenever your component does something that's affecting the rest of the app, it does so with the help of the `ctx` argument.
+
+There are many different things that a component can do with it's context, but for now we'll focus on two functions `ui/current-route` and `ui/redirect`.
+
+### Reading the current route data
+
+On the 2nd line you can see the code that looks like this: `(get-in @(ui/current-route ctx) [:data :name])`. Let's decompose the code and go through it part by part:
+
+`@(ui/current-route ctx)` does a few things:
+
+1. It gets the current route **subscription** from the component context
+2. It dereferences the current route subscription and reads it's value
+
+> **Subscription performance and caching**
+>
+> If you are an experienced Reagent user, you might notice that we're using the "Form-1" component here which should create a new subscription on each component re-render. Fortunately Keechma is caching it's subscriptions so this doesn't happen - every time the component is re-rendered it gets the same `current-route` subscription.
+
+After we have read the current route value we extract the name from it's `:data` map. Whenever you read the route you will get a map that looks like this:
+
+```clojure
+{:route "pattern-that-was-used-to-match-the-url"
+ :data {:key "value"}}
+```
+
+Most of the time, you'll only want to read the values in the `:data` attribute.
+
+If our URL looked like this: `?name=Mihael` the route map returned by the `ui/current-route` function would look like this:
+
+```clojure
+{:data {:name "Mihael"}}
+```
+
+In this case the `:route` attribute is missing, since we haven't defined any route patterns (yet!).
+
+### Storing the name in the route
+
+Next part that interests us is the `input` field. Here's where the action happens:
+
+```clojure
+[:input
+ {:id "name"
+  :on-change (fn [e] (ui/redirect ctx {:name (.-value (.-target e))}))
+  :value current-name}]]
+```
+
+This input field is a standard _controlled_ React component. This means that both the `value` and the `on-change` props are defined and they control the current value of the input field.
+
+Input's `:value` is set to the current route's `:name`, which will be an empty string when we start the app (remember the 2nd line of our component). Whenever the `input` value is changed, the `on-change` handler is called. Let's figure out what's going in there:
+
+```clojure
+(fn [e] (ui/redirect ctx {:name (.-value (.-target e))}))
+```
+
+1. First we read the value of the event target (the input field in this case)
+2. Then we call the `ui/redirect` function and pass it the params that we want to represent in the route
+
+This means that on each input change the URL will change to reflect that change. URL will be converted to a Clojure map and stored in the app DB. Since we're dereferencing the `ui/current-route` subscription in the component, Reagent will re-render the component with a new route value.
+
+![Route Circle](/blogposts/route-circle.svg)
+
+## Adding pretty routes
+
+Right now the app is using query params to serialize the route params, but let's say that we want the route to look like this: `name/Mihael`. We want to have the same functionality, but we want to change the route so the URLs look nicer.
+
+It turns out it's trivial to do so. Remember, in Keechma route params are just data, and how they are serialized into the URL is of no concern to the rest of the app.
+
+```clojure
+(def app-definition
+  {:components   {:main hello-world-routing-component}
+   :html-element (.getElementById js/document "app")})
+
+(def pretty-route-app-definition
+  {:components   {:main hello-world-routing-component}
+   :html-element (.getElementById js/document "app")
+   :routes       ["name/:name"]})
+```
+
+If you compare these two app definitions, you'll notice that the only difference is in the `:routes` attribute. Keechma uses patterns defined in this attribute to serialize and deserialize the route params. The rest of the app stays the same!
+
+### Route defaults
+
+If we want to go a step further we can add a default value to the route param. Let's change the route definition so it looks like this:
+
+```clojure
+[["" {:name "Student"}]
+ ["name/:name" {:name "Student"}]]
+```
+
+Now our application is greeting people even if they don't enter their name. In this case we're defining multiple route patterns:
+
+1. `["" {:name "Student"}]` - This pattern will match an empty route (for instance when you load the app for the first time), and it will set the `:name` param to "Student"
+2. `["name/:name" {:name "Student"}]` - This pattern will match any route that starts with `name/` even if the `:name` param is not set - in that case it will set the `:name` to "Student"
+
+## Keechma principles
+
+In this post we wrote a pretty small app, but nonetheless it helped us to uncover two important Keechma principles:
+
+1. In Keechma routes are just data, your components never care how the URL **looks**, they only care about the data that the URL **contains**
+2. Routes are reactive - they get stored in the app DB, and you can treat them like any other part of your state
+
+---
+body2:
+We're working hard on the v1 release, and if you want to keep track of Keechma news and releases, subscribe to our newsletter:
+
+<!-- Begin MailChimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="//retroaktive.us8.list-manage.com/subscribe/post?u=0fd70cfbc61d34de3b89963e9&amp;id=d4250786aa" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to Keechma mailing list</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_0fd70cfbc61d34de3b89963e9_d4250786aa" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->

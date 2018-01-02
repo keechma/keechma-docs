@@ -13,7 +13,7 @@ body:
 <li><strong>Application</strong>: a combination of the routes, controllers, components and subscriptions that work together as a unit. Application state is stored in the internal atom.</li>
 <li><strong>Routes</strong>: a list of route patterns that describe how to transform the URL to data and data to the URL.</li>
 <li><strong>Controller Manager</strong>: internal part of the application that starts or stops controllers based on the current route params.</li>
-<li><strong>Controllers</strong>: Clojure records that implement the <code>controller/IController</code> protocol. They are managed by the controller manager. Controllers are responsible for the following:
+<li><strong>Controllers</strong>: Clojure records that are managed by the controller manager. Controllers are responsible for the following:
 <ol>
 <li>When started they (can) mutate the application state and load the data.</li>
 <li>When stopped they (can) mutate the application state and clean up the loaded data.</li>

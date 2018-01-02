@@ -1,6 +1,6 @@
 _model: api-annotated
 ---
-title: API / Toolbox 0.0.1-SNAPSHOT-4
+title: API / Toolbox 0.1.6
 ---
 body:
 
@@ -65,13 +65,13 @@ body:
         </ul>
     </div>
     <div class="namespace-index" id="content">
-        <h1><span class="project-title"><span class="project-name">Toolbox</span> <span class="project-version">0.0.1-SNAPSHOT-4</span></span>
+        <h1><span class="project-title"><span class="project-name">Toolbox</span> <span class="project-version">0.1.6</span></span>
         </h1>
         <div class="doc">
             <p>Keechma Toolbox.</p>
         </div>
         <h2>Installation</h2>
-        <p>To install, add the following dependency to your project or build file:</p><div class="pre-deps-wrap"><pre class="deps">[keechma/toolbox &quot;0.0.1-SNAPSHOT-4&quot;]</pre></div>
+        <p>To install, add the following dependency to your project or build file:</p><div class="pre-deps-wrap"><pre class="deps">[keechma/toolbox &quot;0.1.6&quot;]</pre></div>
         <h2>Namespaces</h2>
         <div class="namespace">
             <h3><a href="keechma_toolbox_dataloader_controller">keechma.toolbox.dataloader.controller</a></h3>
@@ -86,6 +86,8 @@ body:
                     <li> <a href="keechma_toolbox_dataloader_controller#var-Controller">Controller</a> </li>
                     <li> <a href="keechma_toolbox_dataloader_controller#var-map-.3EController">map-&gt;Controller</a> </li>
                     <li> <a href="keechma_toolbox_dataloader_controller#var-register">register</a> </li>
+                    <li> <a href="keechma_toolbox_dataloader_controller#var-run-dataloader.21">run-dataloader!</a> </li>
+                    <li> <a href="keechma_toolbox_dataloader_controller#var-wait-dataloader-pipeline.21">wait-dataloader-pipeline!</a> </li>
                 </ul>
             </div>
         </div>
@@ -130,7 +132,9 @@ body:
                     <li> <a href="keechma_toolbox_pipeline_core#var--.3EError">-&gt;Error</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var--.3EExecuteSideffect">-&gt;ExecuteSideffect</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var--.3ERedirectSideffect">-&gt;RedirectSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var--.3ERunPipelineSideffect">-&gt;RunPipelineSideffect</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var--.3ESendCommandSideffect">-&gt;SendCommandSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-call-sideffect">call-sideffect</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var-commit.21">commit!</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var-CommitSideffect">CommitSideffect</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var-do.21">do!</a> </li>
@@ -144,11 +148,14 @@ body:
                     <li> <a href="keechma_toolbox_pipeline_core#var-map-.3EError">map-&gt;Error</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var-map-.3EExecuteSideffect">map-&gt;ExecuteSideffect</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var-map-.3ERedirectSideffect">map-&gt;RedirectSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-map-.3ERunPipelineSideffect">map-&gt;RunPipelineSideffect</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var-map-.3ESendCommandSideffect">map-&gt;SendCommandSideffect</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var-pipeline.21">pipeline!</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var-pipeline-errors">pipeline-errors</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var-redirect.21">redirect!</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var-RedirectSideffect">RedirectSideffect</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-run-pipeline.21">run-pipeline!</a> </li>
+                    <li> <a href="keechma_toolbox_pipeline_core#var-RunPipelineSideffect">RunPipelineSideffect</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var-send-command.21">send-command!</a> </li>
                     <li> <a href="keechma_toolbox_pipeline_core#var-SendCommandSideffect">SendCommandSideffect</a> </li>
                 </ul>

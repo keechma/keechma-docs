@@ -1,0 +1,37 @@
+title: Breaking changes in Keechma from v0.3.0
+---
+_slug: breaking-changes-in-keechma
+---
+pub_date: 2017-09-06
+---
+author: Mihael Konjević
+---
+gravatar: 9976060bfb26220dd042340394d06b31
+---
+twitter_handle: mihaelkonjevic
+---
+body:
+
+Since the version 0.3.0 Keechma introduces some breaking changes to it's core API. Previously we've used protocols and records to implement controllers, but this stopped working in the newer ClojureScript versions. The previous implementation worked "accidentally", so we had to find an alternative.
+
+## The change
+
+Controllers in Keechma have default behavior implemented, and previously we've used the `extend-type` to implement this behavior. We also used partially implemented protocols to override the default behavior:
+
+```
+(defrecord Controller []
+  controller/IController
+  (params [this route-params]
+    (get-in route-params [:data :page])))
+```
+
+It turns out that partially implemented protocols are not supported by ClojureScript - you have to implement all listed functions. From the version 0.3.0 controller behavior is implemented with multimethods:
+
+```
+(defrecord Controller [])
+
+(defmethod controller/params Controller [controller route-params]
+  (get-in route-params [:data :page]))
+```
+
+Function signatures and the behavior is the same, and the code update requires just the mechanical code change. Currently some of our demo apps still use the old API, but these will be fixed in the coming days.

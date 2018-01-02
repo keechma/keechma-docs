@@ -92,6 +92,16 @@ body:
                     <div class="inner"><span>register</span></div>
                 </a>
             </li>
+            <li class="depth-1">
+                <a href="#var-run-dataloader.21">
+                    <div class="inner"><span>run-dataloader!</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-wait-dataloader-pipeline.21">
+                    <div class="inner"><span>wait-dataloader-pipeline!</span></div>
+                </a>
+            </li>
         </ul>
     </div>
     <div class="namespace-docs" id="content">
@@ -124,7 +134,7 @@ body:
         </div>
         <div class="public anchor" id="var-map-.3EController">
             <h3>map-&gt;Controller</h3>
-            <div class="usage"><code>(map-&gt;Controller G__13069)</code></div>
+            <div class="usage"><code>(map-&gt;Controller G__14827)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>
@@ -253,6 +263,20 @@ body:
 </code></pre>
                     <p>This will reload all invalidated datasources.</p>
                 </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-run-dataloader.21">
+            <h3>run-dataloader!</h3>
+            <div class="usage"><code>(run-dataloader!)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-wait-dataloader-pipeline.21">
+            <h3>wait-dataloader-pipeline!</h3>
+            <div class="usage"><code>(wait-dataloader-pipeline!)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
             </div>
         </div>
     </div>

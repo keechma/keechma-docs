@@ -1,6 +1,6 @@
 _model: api-annotated
 ---
-title: API / Keechma 0.2.0-SNAPSHOT-11
+title: API / Keechma 0.3.1
 ---
 body:
 
@@ -45,13 +45,13 @@ body:
         </ul>
     </div>
     <div class="namespace-index" id="content">
-        <h1><span class="project-title"><span class="project-name">Keechma</span> <span class="project-version">0.2.0-SNAPSHOT-11</span></span>
+        <h1><span class="project-title"><span class="project-name">Keechma</span> <span class="project-version">0.3.1</span></span>
         </h1>
         <div class="doc">
             <p>Frontend micro framework for ClojureScript and Reagent.</p>
         </div>
         <h2>Installation</h2>
-        <p>To install, add the following dependency to your project or build file:</p><div class="pre-deps-wrap"><pre class="deps">[keechma &quot;0.2.0-SNAPSHOT-11&quot;]</pre></div>
+        <p>To install, add the following dependency to your project or build file:</p><div class="pre-deps-wrap"><pre class="deps">[keechma &quot;0.3.1&quot;]</pre></div>
         <h2>Namespaces</h2>
         <div class="namespace">
             <h3><a href="keechma_app-state">keechma.app-state</a></h3>
@@ -70,6 +70,7 @@ body:
                     <li> <a href="keechma_app-state#var-AppState">AppState</a> </li>
                     <li> <a href="keechma_app-state#var-AppStateWriteHandler">AppStateWriteHandler</a> </li>
                     <li> <a href="keechma_app-state#var-ControllerWriteHandler">ControllerWriteHandler</a> </li>
+                    <li> <a href="keechma_app-state#var-default-route-processor">default-route-processor</a> </li>
                     <li> <a href="keechma_app-state#var-deserialize-app-state">deserialize-app-state</a> </li>
                     <li> <a href="keechma_app-state#var-get-controller-types-set">get-controller-types-set</a> </li>
                     <li> <a href="keechma_app-state#var-get-initial-data">get-initial-data</a> </li>
@@ -89,17 +90,32 @@ body:
         <div class="namespace">
             <h3><a href="keechma_controller">keechma.controller</a></h3>
             <div class="doc">
-                <div class="markdown"></div>
+                <div class="markdown">
+                    <p>Controllers in Keechma are the place where you put the code that has side-effects. They are managed by the <a href="keechma_controller-manager">keechma.controller-manager</a> which will start them or stop them based on the current
+                        route.</p>
+                </div>
             </div>
             <div class="index">
                 <p>Public variables and functions:</p>
                 <ul>
                     <li> <a href="keechma_controller#var--.3ESerializedController">-&gt;SerializedController</a> </li>
+                    <li> <a href="keechma_controller#var-context">context</a> </li>
                     <li> <a href="keechma_controller#var-dispatcher">dispatcher</a> </li>
-                    <li> <a href="keechma_controller#var-IController">IController</a> </li>
+                    <li> <a href="keechma_controller#var-execute">execute</a> </li>
+                    <li> <a href="keechma_controller#var-handler">handler</a> </li>
+                    <li> <a href="keechma_controller#var-is-running.3F">is-running?</a> </li>
                     <li> <a href="keechma_controller#var-map-.3ESerializedController">map-&gt;SerializedController</a> </li>
                     <li> <a href="keechma_controller#var-not-implemented">not-implemented</a> </li>
+                    <li> <a href="keechma_controller#var-params">params</a> </li>
+                    <li> <a href="keechma_controller#var-record-type">record-type</a> </li>
+                    <li> <a href="keechma_controller#var-redirect">redirect</a> </li>
+                    <li> <a href="keechma_controller#var-report">report</a> </li>
+                    <li> <a href="keechma_controller#var-send-command">send-command</a> </li>
                     <li> <a href="keechma_controller#var-SerializedController">SerializedController</a> </li>
+                    <li> <a href="keechma_controller#var-ssr-handler">ssr-handler</a> </li>
+                    <li> <a href="keechma_controller#var-start">start</a> </li>
+                    <li> <a href="keechma_controller#var-stop">stop</a> </li>
+                    <li> <a href="keechma_controller#var-wake">wake</a> </li>
                 </ul>
             </div>
         </div>
@@ -137,6 +153,7 @@ body:
                     <li> <a href="keechma_ui-component#var--.3EUIComponent">-&gt;UIComponent</a> </li>
                     <li> <a href="keechma_ui-component#var-constructor">constructor</a> </li>
                     <li> <a href="keechma_ui-component#var-IUIComponent">IUIComponent</a> </li>
+                    <li> <a href="keechma_ui-component#var-make-ex">make-ex</a> </li>
                     <li> <a href="keechma_ui-component#var-map-.3EUIComponent">map-&gt;UIComponent</a> </li>
                     <li> <a href="keechma_ui-component#var-resolve-component-dep">resolve-component-dep</a> </li>
                     <li> <a href="keechma_ui-component#var-resolve-dep">resolve-dep</a> </li>

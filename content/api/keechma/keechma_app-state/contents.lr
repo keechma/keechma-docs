@@ -93,6 +93,11 @@ body:
                 </a>
             </li>
             <li class="depth-1">
+                <a href="#var-default-route-processor">
+                    <div class="inner"><span>default-route-processor</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
                 <a href="#var-deserialize-app-state">
                     <div class="inner"><span>deserialize-app-state</span></div>
                 </a>
@@ -166,7 +171,7 @@ body:
         </div>
         <div class="public anchor" id="var--.3EAppState">
             <h3>-&gt;AppState</h3>
-            <div class="usage"><code>(-&gt;AppState name reporter router routes-chan commands-chan app-db subscriptions-cache components controllers context html-element stop-fns)</code></div>
+            <div class="usage"><code>(-&gt;AppState name reporter router routes-chan route-processor commands-chan app-db subscriptions-cache components controllers context html-element stop-fns)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>
@@ -227,6 +232,13 @@ body:
                 <div class="markdown"></div>
             </div>
         </div>
+        <div class="public anchor" id="var-default-route-processor">
+            <h3>default-route-processor</h3>
+            <div class="usage"><code>(default-route-processor route _)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
         <div class="public anchor" id="var-deserialize-app-state">
             <h3>deserialize-app-state</h3>
             <div class="usage"><code>(deserialize-app-state transit-readers serialized-state)</code></div>
@@ -250,14 +262,14 @@ body:
         </div>
         <div class="public anchor" id="var-map-.3EAppState">
             <h3>map-&gt;AppState</h3>
-            <div class="usage"><code>(map-&gt;AppState G__12019)</code></div>
+            <div class="usage"><code>(map-&gt;AppState G__14038)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>
         </div>
         <div class="public anchor" id="var-map-.3ESerializedAppState">
             <h3>map-&gt;SerializedAppState</h3>
-            <div class="usage"><code>(map-&gt;SerializedAppState G__12026)</code></div>
+            <div class="usage"><code>(map-&gt;SerializedAppState G__14047)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>

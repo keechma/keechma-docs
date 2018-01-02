@@ -1,0 +1,190 @@
+title: Route driven apps rock!
+---
+_slug: route-driven-apps-rock
+---
+pub_date: 2017-09-06
+---
+author: Mihael Konjević
+---
+gravatar: 9976060bfb26220dd042340394d06b31
+---
+twitter_handle: mihaelkonjevic
+---
+body:
+Last weekend I gave a talk about Keechma at the great [ClojuTRE](http://clojutre.org/2017/) conference. The title of the talk was "Developing (with) Keechma" - which was intentionally left open ended because I wanted to be able to take the content in any direction possible. While I was preparing the talk, it was clear that there was one part of Keechma that is different from the other frameworks -  you could say it's Keechma's secret sauce - the combination of the router and the controller manager.
+
+Here's the video, watch it if you haven't seen it yet:
+
+<div class="video-container"><iframe src="https://www.youtube.com/embed/2BF6yKIpXmM" frameborder="0" allowfullscreen></iframe></div>
+
+## Going deeper
+
+ClojuTRE talk format is 20 minutes, which is a very short time to cover the subtler aspects of the router and the controller manager. In this blog post I want to expand on this theme. If you watched the video, you've seen this slide:
+
+<div class="diagram"><img src="/blogposts/developing_with_keechma.006.png" alt="Keechma Architecture"></div>
+
+This slide lays out the Keechma architecture. The flow is simple:
+
+1. The router converts the URL to the data
+2. The controller manager receives the URL data and orchestrates the controllers
+3. Controllers react to the route data change and mutate the AppDB
+4. AppDB changes are reflected in the UI
+
+(there is another part to the story - the yellow arrow going up - controllers can also receive the commands from the UI, but this is out of the scope of this article)
+
+Here is another way to render this architecture:
+
+<div class="diagram"><img src="/blogposts/keechma_inside_out.png" alt="Keechma Architecture - inside out"></div>
+
+Although it's similar to the previous illustration, this one shows another property of the Keechma parts - **each one is the super set of the previous one**.
+
+This point is important. If we ignore the async nature of the frontend apps, we could encode this image in the following way
+
+```clojure
+(-> url
+    (extract-route-data)
+    (invoke-controller-manager)
+    (update-app-db)
+    (render-ui))
+```
+
+If you look closely at this code, you can see that each of the layers has only one responsibility - do some task based on **what** was returned from the previous step.
+
+If the only thing we care about is **what** happened, what is missing? We're missing, **why, how and when**.
+
+### Why?
+
+We can't really remove the **why** from the equation, but Keechma allows you to isolate that part on the topmost layer - the router.
+
+Let's try to apply the [5 whys](https://en.wikipedia.org/wiki/5_Whys) to Keechma apps:
+
+- **Why (are we rendering this UI)?** - because the data is present in the AppDB
+- **Why (is this data present in this AppDB)** - because controllers placed it in there
+- **Why (did the controllers place this data in the AppDB)** - because they were started
+- **Why (were these controllers started)** - because their `params` functions returned the non `nil` value
+- **Why (did the controllers' `params` function return the non `nil` value)** - because the route contained the data these controllers were interested in
+
+There you have it, five steps to enlightenment :). Jokes aside, this is the Keechma's secret sauce. You can follow the flow from the outside in, and from the inside out. There is only one **why** in the Keechma apps.
+
+### How?
+
+Like why, **how**, can't be really removed from the equation, but you guessed it - we can isolate it. What do I mean?
+
+- Router cares only about one **how** - how to convert the URL to the data
+- Controllers care only about one **how** - how to load the application data into the AppDB - based on the router data
+- UI cares only about one **how** - how to render the data in the AppDB
+
+As you can see each of the layers has very isolated responsibilities - controllers don't care about the route patterns, and the UI doesn't care how the data got into the AppDB, it only cares about **what** is in there.
+
+As a bonus, let's look at how the UI layer generates the URLs. When you want to generate the application URL from the URL layer, you'll use the `keechma/ui-component.url` function:
+
+```clojure
+[:a {:href (keechma.ui-component/url ctx {:param "value"})} "This is my link"]
+```
+
+This function only cares about the **what** - what is the data that you want to represent in the URL - **how** it's going to be represented (how the URL will look like) is deferred to the router.
+
+
+### When?
+
+Like in the previous points **when** is not really removed, but it's seriously simplified. **When** is handled by the Keechma itself.
+
+This point is the subtlest one from the list. We'll need an example to proceed, so let's imagine the UI that everyone used at least once (here I count on the possibility that you've used Outlook sometime in your life).
+
+We have a master - detail view. There is an email list, and when you click on the email, the detail view (thread) will be rendered on the side.
+
+<div class="diagram"><img src="/controller_manager.svg" alt="Controller Manager"></div>
+
+Let's define the routes:
+
+- `/emails` - renders the list of emails
+- `/emails/:id` - renders the list of emails **and** in the detail view the email thread (based on the `:id` param)
+
+We will also enable the users to use pagination, which means that all of these URLs are valid too:
+
+- `/emails?limit=10`
+- `/emails?offset=20`
+- `/emails?limit=10&offset=20`
+- `/emails/this-is-the-email-id?limit=10`
+- `/emails/this-is-the-email-id?offset=20`
+- `/emails/this-is-the-email-id?limit=10&offset=20`
+
+So far, so good - we know **when** we need to load **what**. Let's also pretend that we're using server - side like router to render the screens:
+
+```
+(defurl "/emails"
+	(load-and-render-emails))
+
+(defurl "/emails/:id" [id]
+	(load-and-render-emails)
+	(load-and-render-email-by-id id))
+```
+
+_(this is pseudo code)_
+
+If we're living on the server side, this makes sense because we always need to load all of the data used in the rendering.  We match the route pattern, load the data, and render something based on it. But on the frontend, we don't want to reload everything if we have the data already loaded in the memory. This complicates the behavior, let's go through some of the possible situations:
+
+1. **When** the user lands on `/emails` - we want to load the list of emails, and use the default limit
+2. **When** the user lands on `/emails/:id` - we want to load the list of emails, and use the default limit, and load the email by the id
+3. **When** the user lands on `/emails/:id?offset=10` - we want to load the list of emails, start from the 10th email, and use the default limit, and load the email by the id
+
+I could list more cases, but I guess you get the picture. But, let's complicate it some more. On the frontend, we need to handle these  distinct ways in which users loads the URL:
+
+1. A full refresh - user has refreshed the page and we need to load all of the data - for `/emails` we load the emails list and for `/emails/this-is-an-email-id` we load the emails list and the email by id
+2. Incremental route change - user was on `/emails` and transitioned to `/emails/this-is-an-email-id`
+3. Incremental route change - user was on `/emails/this-is-an-email-id` and transtioned to `/emails/this-is-an-email-id?offset=20`
+
+First case is clear, we know what to load. The other two ones are tricky, this is where the **when** part comes in. Let's map out the best behavior for these:
+
+1. Incremental change `/emails` -> `/emails/this-is-an-email-id`
+	- We already have the emails list loaded on the frontend
+	- We check if the email with the id `this-is-an-email-id` exists in the list of the loaded emails
+		- If it exists we render it immediately
+		- If it doesn't, we load it from the server and render
+2. Incremental change `/emails/this-is-an-email-id` -> `/emails/this-is-an-email-id?offset=20`
+	- We want to keep the email with the id `this-is-an-email-id` in the memory
+	- We want to load a new list of emails (using the `offset` param)
+
+There is a lot of implicit **whens** here because we rely on the result of the previous route (when we go from the state `A` to the state `B`).
+
+Keechma solves all of these cases for you. Let's take a look at another slide from the talk:
+
+<div class="diagram"><img src="/blogposts/developing_with_keechma.008.png" alt="Controller Manager decision table"></div>
+
+Using the controller manager's decision table, we can easily encode this behavior with two controllers:
+
+```
+(defrecord EmailList [])
+
+(defmethod controller/params EmailList [_ route-params]
+  (when (= "emails" (get-in route-params [:data :page]))
+    {:offset (or (get-in route-params [:data :offset]) 0)
+     :limit (or (get-in route-params [:data :limit]))}))
+
+(defrecord EmailById [])
+
+(defmethod controller/params EmailById [_ route-params]
+  (when (= "emails" (get-in route-params [:data :page]))
+    (get-in route-params [:data :id])))
+```
+
+These controllers are completely independent, and will be started by the controller manager **when** the `controller/params` function returns a non `nil` value.
+
+I've promised that we will be removing the **when** from the equation, so here it is:
+
+- AppDB doesn't care **when** the controller that loads the email list was started - and **when** it will load the data
+- AppDB doesn't care **when** the controller that loads the email by id was started - and **when** it will load the data
+
+Controllers only care about the **what** - what are the route params that I care about, **when** part is taken care of by Keechma.
+
+This behavior is formalized in the Dataloader library which is an optional library for Keechma. You get all the right behavior - route driven data loading - out of the box, without the boilerplate code. Check out the blog post about the dataloader [here](https://keechma.com/news/introducing-keechma-toolbox-part-2-dataloader/).
+
+## Conclusion
+
+Keechma is the framework that allows you to care about **what**. On each of it's layers, it isolates you from the previous layer and gives you a chance to build a deterministic and predictable app.
+
+Even if you don't use Keechma, route - driven apps rock!
+
+## Keechma Workshop
+
+There will be a [Keechma Workshop in Zagreb on Oct 5th](https://2017.webcampzg.org/workshops/keechma-going-beyond-redux/), where we'll cover the whole Keechma architecture. This is a great opportunity to get started with Keechma. The workshop is held as a part of the [WebCamp conference](https://2017.webcampzg.org/) which has a great talk lineup this year. See you there!

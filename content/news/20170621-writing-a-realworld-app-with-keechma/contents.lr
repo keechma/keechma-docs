@@ -1,0 +1,347 @@
+title: Writing a RealWorld app with Keechma
+---
+_slug: writing-a-realworld-app-with-keechma
+---
+pub_date: 2017-06-21
+---
+author: Mihael Konjević
+---
+gravatar: 9976060bfb26220dd042340394d06b31
+---
+twitter_handle: mihaelkonjevic
+---
+body:
+
+[RealWorld](https://github.com/gothinkster/realworld/) is a Medium clone example app written in various frontend and backend technologies. Think of it as a TodoMVC on steroids. I've recently written a [Keechma version of the app](https://github.com/keechma/realworld-starter-kit), and in this blog post I'll walk you through the architecture and implementation.
+
+Every RealWorld implementation adheres to the same API contract, which means that you can mix and match frontends and backends. Since the app is considerably more complex than TodoMVC, it gives a better overview of the patterns used in various frameworks. Today, I want to focus on [dataloader](https://keechma.com/news/introducing-keechma-toolbox-part-2-dataloader/) and [pipelines](https://keechma.com/news/introducing-keechma-toolbox-part-1-pipelines/), and how I used them to build the Keechma version.
+
+_This article assumes that you're familiar with dataloader and pipelines. If you're not, now is a good time to check these blog posts._
+
+## The architecture
+
+### Dataloader
+
+Let's start with the review of the datasources that the app consumes:
+
+1. **Articles** - being a [Medium](https://medium.com) clone, articles are front and center in the app, and there are multiple params we can apply to the articles service, and each of these can be paginated
+	1. General Feed - chronological list of articles in the system
+	2. User Feed - articles posted by the authors followed by the currently logged in user
+	3. Articles filtered by tag
+	4. User's posted articles
+	5. User's favorited articles
+2. **Current Article** - Article detail view
+3. **Current Article Comments**
+3. **Tags** - list of popular tags
+4. **Current User Profile** - currently logged in user's profile data
+5. **User Profile** - (any) User detail view
+
+This is how it looks in the app:
+
+![Datasources Architecture](/blogposts/keechma_framework_clojurescript_reagent_datasource_architecture.png)
+
+There are more places where some of the datasources are used, but this is the general layout.
+
+Although all of the implementations should work in the same way, I've used some artistic freedom to make the implementation more in line with the Keechma best practices. Practically, it means that I've pushed more state to the route. If you compare [Keechma implementation](http://retroaktive.me/conduit/) to the [default one](demo.realworld.io/), you'll notice that (unlike the default one), Keechma version changes the route when you click on the page or tag. It is not necessary to use the route to trigger the dataloader, but it made more sense.
+
+Now after we have the datasources defined, let's pair them with the routes:
+
+1. **Articles**
+	1. General Feed - `/`, `/home`
+	2. User Feed - `'/home/personal`
+	3. Articles filtered by tag - `/home/tag/:tag`
+	4. User's posted articles - `/profile/:username`
+	5. User's favorited articles - `/profile/:username/favorites`
+2. **Current Article** - `/article/:slug`
+3. **Current Article** - `/article/:slug`
+4. **Tags** - `/`, `/home`, `/home/personal`, `/home/tag/:tag`
+5. **Current User Profile** - any page
+6. **User Profile** - `/profile/:username`, `/profile/:username/favorites`
+
+My favorite part about the dataloader is how easily are the UI needs translated to code, and how obvious the result is. Each datasource checks the route and returns the loading params when the route is right (in this app, loader function will not load the datasource if the datasource's params function returns `nil`). If a route needs multiple datasources loaded, they will be loaded in parallel (like General Feed articles and Tags - both are needed on the homepage).
+
+If you take a look at the `articles` datasource, you'll notice that it's actually loading five different sets of articles. But, since they are all handled by a single datasource, the component that renders articles can subscribe to only one subscription - `articles`. This makes the UI layer super simple, the component doesn't care why and how are the articles loaded, it only cares about the rendering. Another advantage of this approach is that you have a truly unidirectional data flow, articles are "pushed" from the app-db to the articles component, instead of being "pulled" from the component. The route is the main source of truth.
+
+![Unidirectional data flow](/blogposts/keechma_framework_clojurescript_reagent_unidirectional_dataflow.png)
+
+
+#### The code
+
+Let's start with the loader function, which takes in the requests from each datasource and makes the HTTP to get the data.
+
+```clojure
+(def api-loader
+  (map-loader
+   (fn [req]
+     (when-let [params (:params req)]
+       (let [app-db (:app-db req)
+             get-from-app-db (or (:get-from-app-db params) (fn [_] nil))]
+         (or (get-from-app-db app-db)
+             (api/dataloader-req params)))))))
+```
+
+The loader function is wrapped with the `map-loader` helper because loader will get a vector of all datasource requests it can resolve at once. Then, for each datasource request we check if the `params` contain the `:get-from-app-db` function. Loader function has full access to the current app-db value, which we can use to check if the requested data is already in the app-db. If it's not, we make the actual HTTP request. This api loader function is used by all listed datasources. If the `params` don't exist, loader will return `nil` which will cause the dataloader to remove the previously loaded data (for that datasource) from `app-db`.
+
+The simplest datasource is `tags`, it's loaded only on the homepage, and it always loads the same data:
+
+```clojure
+(def tags-datasource
+  {:target [:edb/collection :tag/list]
+   :params (fn [_ {:keys [page]} _]
+             (when (= "home" page)
+               {:url "/tags"}))
+   :processor api/process-tags
+   :loader api-loader})
+```
+
+The `:target` attribute says that the returned data should be stored as an EntityDB collection under the entity `:tag` in a collection named `:list`. Second argument to the `:params` function is route (which is destructured here - we only need the `:page` attribute), which is used to check if we're on the homepage, and if we are it returns the params which are passed to the loader function.
+
+<hr>
+
+The datasource that wasn't mentioned yet, because it's different from the others, is the `jwt` datasource. The RealWorld app allows the user to be logged in, and it requires the user's JWT token to be stored in the browser's local storage. This datasource is a bit specific because it can be placed in the app-db by non - dataloader mechanisms. For instance, when the user registers or logs in, JWT token will be put into the local storage and app-db by the code that handles registration or login. This is one of the advantages of dataloader, it doesn't require exclusive management of the data. You can mix and match dataloader with your own logic.
+
+```clojure
+(def ignore-datasource-check :keechma.toolbox.dataloader.core/ignore)
+
+(def jwt-datasource
+  {:target [:kv :jwt]
+   :loader (map-loader #(get-item local-storage "conduit-jwt-token"))
+   :params (fn [prev _ _]
+             (when (:data prev) ignore-datasource-check))})
+```
+
+Let's take a look at the `:params` function. The first argument to the params function is a value that is currently present in the app-db. In this case, we check if that value exists, and if it does we return `:keechma.toolbox.dataloader.core/ignore`. This tells the dataloader that whatever is in the app-db is good enough and that it shouldn't do anything about this datasource - the `loader` function will not be called. If the previous value is missing, params function will return `nil` and the `:loader` function will be called. The loader will try to load the JWT from the local storage.
+
+After we've covered the `jwt` datasource, we can move to the most complex datasource in the system - `articles`. To reiterate, `articles` datasource loads one of the five variants (and each one of them can be paginated):
+
+1. General Feed - `/`, `/home`
+2. User Feed - `'/home/personal`
+3. Articles filtered by tag - `/home/tag/:tag`
+4. User's posted articles - `/profile/:username`
+5. User's favorited articles - `/profile/:username/favorites`
+
+One of those variants is different from the others. Can you guess which one? If your answer is "User Feed" you're right - it requires the user to be logged in, and it's loaded from a different API endpoint with the `Authorization` header present. This means that the `articles` datasource needs a way to get the JWT token from app-db. Dataloader supports the `:deps` attribute for cases like this. Dataloader will reload (automatically) reload a datasource whenever the route or any of the datasource's dependencies change.
+
+Let's take a look at the code:
+
+```clojure
+(defn add-articles-tag-param [params {:keys [subpage detail]}]
+  (let [tag (when (= "tag" subpage) detail)]
+    (if tag
+      (assoc params :tag tag)
+      params)))
+
+(defn add-articles-pagination-param [params {:keys [p]}]
+  (if p
+    (let [offset (* (dec (js/parseInt p 10)) settings/articles-per-page)]
+      (assoc params :offset offset))
+    params))
+
+(defn add-articles-author-param [params {:keys [page subpage detail]}]
+  (if (and (= "profile" page) subpage)
+    (if (= "favorites" detail)
+      (assoc params :favorited subpage)
+      (assoc params :author subpage))
+    params))
+
+(defn auth-header
+  ([jwt] (auth-header {} jwt))
+  ([headers jwt]
+   (if jwt
+     (assoc headers :authorization (str "Token " jwt))
+     headers)))
+
+(def articles-datasource
+  {:target [:edb/collection :article/list]
+   :deps [:jwt]
+   :params (fn [_ route {:keys [jwt]}]
+             (let [page (:page route)
+                   subpage (:subpage route)
+                   personal-feed? (and (= "home" page) (= "personal" subpage))]
+               (when (or (= "home" page)
+                         (= "profile" page))
+                 (-> {:url (if personal-feed? "/articles/feed" "/articles")}
+                     (assoc :headers (auth-header jwt))
+                     (add-articles-author-param route)
+                     (add-articles-pagination-param route)
+                     (add-articles-tag-param route)))))
+   :processor api/process-articles
+   :loader api-loader})
+```
+
+As you can see, `:jwt` is listed as a dependency, and the `:params` function receives a map with all of its dependencies as the third argument. The `:params` function will first check if we're on the `home` or on the `profile` page - which is where the articles are rendered. After that it checks if we're rendering the general or the user feed (based on the route's `:subpage` attribute). This will determine which endpoint will be used to retrieve the articles. Rest of the code in the `:params` function adds the optional params based on the route - pagination, tag, favorited and author filters, and the `Authorization` header if the JWT is present.
+
+This is all that's needed to implement a pretty complex datasource, all the logic is in one place, and you can easily determine what will be loaded based on the route and presence of the JWT token.
+
+There are a few important points here that I want to make:
+
+1. Most applications are read heavy (instead of write heavy), and it's important to be able to reason about the data that is loaded for each screen. Dataloader gives you this ability by grouping all of the logic in one place.
+2. Dataloader allows you to think about the business concepts in your UI level - instead of the concrete implementations. UI component that renders articles doesn't care about how and when they are loaded (and with which params) - it only cares about the rendering
+3. Dataloader is not locking you into one approach, if you need more flexibility you can always combine it with your own code and logic.
+4. Dataloader is not coupled with the storage mechanism (like Relay and GraphQL) - you can load data from anywhere - it took under 20 lines of code to integrate with the existing (RealWorld) API
+5. Dataloader introduces a level of indirection between the what and how - `:params` function is a synchronous, pure function which makes it easily testable
+
+### User actions
+
+With the dataloader in place, we can move on to the user actions. In the RealWorld app each user can do the following:
+
+1. Login
+2. Logout
+3. Register
+4. Create an article
+5. Edit an article
+6. Delete an article
+7. Favorite/unfavorite an article
+8. Follow/unfollow a user
+
+Login, logout, register, creating an article and editing article features are implemented with the new forms library in the Keechma toolbox. I will write about the need for a new form library - different from [Keechma Forms](https://github.com/keechma/forms), in the next blog post. For now, I'll just say that the new library has a better integration with Keechma, while the original version is a better fit for non-Keechma apps based on Reagent. Their philosophy is the same, and the new library is using some of the features implemented by the Keechma Forms library.
+
+In this post, I'll focus on favorite/unfavorite article feature (follow/unfollow user is almost the same in its implementation). Let's write down how the feature should work:
+
+1. If the user is not logged in - the button should be shown, but instead of changing the `favorited` status of an article, it should take the user to the registration page
+2. If the user is logged in - the button should change the `favorited` status of an article.
+3. The button should work both on each article in the list, and on the article detail view - when only one article is shown on the page.
+
+This is an interesting problem because it requires a combination of a global and local state. The component gets the current user from the app-db (by declaring a subscription dependency) and article through the arguments.
+
+```clojure
+(ns realworld.ui.components.favorite-button
+  (:require [keechma.ui-component :as ui]
+            [keechma.toolbox.ui :refer [sub> <cmd]]
+            [keechma.toolbox.util :refer [class-names]]))
+
+(defn render
+  ([ctx article] (render ctx article :small))
+  ([ctx article size]
+   (let [favorited? (:favorited article)
+         fav-count (:favoritesCount article)
+         current-user (sub> ctx :current-user)
+         action (if current-user
+                  #(<cmd ctx :toggle-favorite article)
+                  #(ui/redirect ctx {:page "register"}))]
+     [:button.btn.btn-sm
+      {:on-click action
+       :class (class-names {:btn-outline-primary (not favorited?)
+                            :btn-primary favorited?
+                            :pull-xs-right (= :small size)})}
+      [:i.ion-heart] " "
+      (if (= :small size)
+        fav-count
+        (str (if favorited? "Unfavorite" "Favorite") " Post (" fav-count ")"))]
+       )))
+
+(def component
+  (ui/constructor {:renderer render
+                   :subscription-deps [:current-user]
+                   :topic :user-actions}))
+```
+
+The component checks if the current user exists, and based on that determines how to handle the click. If the user is present, it will send the `:toggle-favorite` command to the `:user-actions` controller, and if it's not it will redirect the user to the registration page. Notice how this component doesn't care if the user already favorited the article, this logic is in the controller.
+
+```clojure
+(ns realworld.controllers.user-actions
+  (:require [keechma.toolbox.pipeline.core :as pp :refer-macros [pipeline!]]
+            [keechma.toolbox.pipeline.controller :as pp-controller]
+            [realworld.edb :refer [insert-item get-named-item remove-item]]
+            [promesa.core :as p]
+            [realworld.api :as api]))
+
+;; some code is omitted in this example
+
+(defn toggle-favorite [article app-db]
+  (let [jwt (get-in app-db [:kv :jwt])
+        slug (:slug article)]
+    (when jwt
+      (if (:favorited article)
+        (api/favorite-delete jwt slug)
+        (api/favorite-create jwt slug)))))
+
+(def controller
+  (pp-controller/constructor
+   (fn [_]
+     true)
+   {:toggle-favorite (pipeline! [value app-db]
+                       (toggle-favorite value app-db)
+                       (pp/commit! (insert-item app-db :article value)))}))
+```
+
+The controller checks if the article was favorited by the user, and based on that creates or deletes the article. `:favorited` status is present in the article, which means that you'll get a different result if you load the article with or without the authorization header. Dataloader takes care of that because it depends on the `:jwt` datasource, so you'll always get the right data.
+
+When the toggle favorite promise is resolved, the article is placed back in the app-db. This app is using [EntityDB](https://keechma.com/guides/entitydb/) to store it's data, which means that when we insert the item into the app-db, the changes will automatically propagate to all places where the article is rendered.
+
+### Redirecting from unavailable pages
+
+There are some pages in the app which are available or unavailable based on the presence of the current user. For instance, if the user is logged in, they shouldn't be able to go to the registration page. If the user is not logged in, they shouldn't be able to access the settings or the editor. This kind of feature is tricky to implement because user loading is asynchronous, and you want to avoid loading user twice just because you need it in two places. Also, this shouldn't be a responsibility of the component, because it makes your component sideffectful.
+
+Current user is loaded by the dataloader, so in an ideal world, we should be able to wait until the dataloader is done, before making a decision. You probably guessed it, dataloader does provide you with the ability to do so. Let's take a look at the controller code:
+
+```clojure
+(ns realworld.controllers.redirect
+  (:require [keechma.toolbox.pipeline.core :as pp :refer-macros [pipeline!]]
+            [keechma.toolbox.pipeline.controller :as pp-controller]
+            [keechma.toolbox.dataloader.controller :as dataloader-controller]
+            [realworld.edb :refer [get-named-item]]))
+
+(defn get-redirect [route app-db]
+  (let [page                   (:page route)
+        subpage                (:subpage route)
+        current-user           (get-named-item app-db :user :current)
+        current-article        (get-named-item app-db :article :current)
+        current-article-author (if current-article ((:author current-article)) nil)
+        personal-page          {:page "home" :subpage "personal"}
+        home-page              {:page "home"}]
+    (cond
+      (and (= "login" page) current-user)                                        personal-page
+      (and (= "register" page) current-user)                                     personal-page
+      (and (= "home" page) (= "personal" subpage) (not current-user))            home-page
+      (and (= "editor" page) (not current-user))                                 home-page
+      (and (= "settings" page) (not current-user))                               home-page
+      (and (= "article" page) (not current-article))                             home-page
+      (and (= "editor" page) (not current-article))                              home-page
+      (and (= "editor" page) subpage (not= current-user current-article-author)) home-page
+      :else                                                                      nil)))
+
+(defn redirect! [route app-db]
+  (let [redirect-to (get-redirect route app-db)]
+    (when redirect-to
+      (pp/redirect! redirect-to))))
+
+(def controller
+  (pp-controller/constructor
+   (fn [{:keys [data]}]
+     data)
+   {:start (pipeline! [value app-db]
+             (dataloader-controller/wait-dataloader-pipeline!)
+             (redirect! value app-db))}))
+```
+
+This controller returns the whole route map from it's `params` function. This means that this controller will be restarted on each route change. In the `:start` pipeline we can see the `(dataloader-controller/wait-dataloader-pipeline!)` function call. This function will return a promise which will be resolved when the dataloader is finished. This greatly simplifies the logic. In the `get-redirect` function we have access to the whole app-db, and we can make the right decision. Again, it is great to have this kind of logic in one place, you always know what will happen based on the route and the loaded data.
+
+## Conclusion
+
+The RealWorld app is a great example of [how Keechma works](https://keechma.com/guides/). It's implemented in a "modern" way - with the dataloader and pipelines. Dataloader completely changed the way in which I architect and reason about the apps that I'm building. Using the route as the main source of the truth makes your app more deterministic, and simpler.
+
+---
+body2:
+We're working hard on the v1 release, and if you want to keep track of Keechma news and releases, subscribe to our newsletter:
+
+<!-- Begin MailChimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="//retroaktive.us8.list-manage.com/subscribe/post?u=0fd70cfbc61d34de3b89963e9&amp;id=d4250786aa" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to Keechma mailing list</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_0fd70cfbc61d34de3b89963e9_d4250786aa" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->

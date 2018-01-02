@@ -1,120 +1,124 @@
-{% if this._path == '/' %}
-  {% set short_header = true %}
-{% endif %}
+{% if this._path == '/' %} {% set short_header = true %} {% endif %}
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="{{ '/static/gen/styles.css'|url }}">
-    <title>{% block title %}Keechma | ClojureScript micro framework for Reagent{% endblock %}</title>
-    <meta name="description" content="{% block seo_description %}Keechma is a micro framework for Reagent written in ClojureScript. It gives you a set of utilites that make it easier to develop predictable, consistent and deterministic applications.{% endblock %}">
-    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    {% block open_graph %}
-      <meta property="og:title" content="ClojureScript micro framework for Reagent | Keechma news and documentation">
-      <meta property="og:site_name" content="Keechma">
-      <meta property="og:url" content="http://www.keechma.com/">
-      <meta property="og:description" content="Keechma is a micro framework for Reagent written in ClojureScript. It gives you a set of utilites that make it easier to develop predictable, consistent and deterministic applications.">
-      <meta property="fb:app_id" content="">
-      <meta property="og:image" content="http://www.keechma.com/keechma-facebook-logo.jpg" />
-      <meta property="og:type" content="website">
-    {% endblock %}
-    {% block twitter_card %}
-      <meta name="twitter:card" content="summary_large_image">
-      <meta name="twitter:site" content="@mihaelkonjevic">
-      <meta name="twitter:creator" content="@mihaelkonjevic">
-      <meta name="twitter:title" content="ClojureScript micro framework for Reagent | Keechma news and documentation">
-      <meta name="twitter:description" content="Keechma is a micro framework for Reagent written in ClojureScript. It gives you a set of utilites that make it easier to develop predictable, consistent and deterministic applications.">
-      <meta name="twitter:image" content="http://www.keechma.com/keechma-twitter-logo.jpg">
-    {% endblock %}
-  </head>
-  <body>
-    <header {% if short_header %}class="landing-header"{% endif %}>
-      <div class="container{% if fluid %}-fluid{% endif %}">
-        <div itemscope itemtype="http://schema.org/Organization">
-          <meta itemprop="name" content="Keechma">
-          <a itemprop="url" class="pull-left" href="http://www.keechma.com/"><img id="logo" itemprop="logo" src="/keechma-reagent-clojurescript-logo.png" alt="Keechma is a pluggable micro framework for Reagent written in ClojureScript" title="Keechma is a pluggable micro framework for Reagent written in ClojureScript" /></a>
-        </div>
-        <ul class="nav-main list-unstyled pull-right">
-          <li>
-            <a {% if this._path == '/' %} class="active"{% endif %}href="{{ '/'|url }}">Home</a>
-          </li>
-          {% for href, title in [
-            ['/news', 'News'],
-            ['/guides', 'Guides'],
-            ['/annotated', 'Examples'],
-            ['/api', 'API Docs']
-            ] %}
-            <li>
-              <a {% if this.is_child_of(href) %} class="active"{% endif %}href="{{ href|url }}">{{ title }}</a>
-            </li>
-          {% endfor %}
-          <li>
-            <a href="https://github.com/keechma/keechma">Source Code</a>
-          </li>
-        </ul>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="msvalidate.01" content="592C221C60846F2A08FE097E5FB47618" />
+  <meta name="yandex-verification" content="a3608152d7dbdcb6" />
+  <meta http-equiv="content-language" content="en">
+  <link rel="stylesheet" href="{{ '/static/gen/styles.css'|url }}">
+  <title>{% block title %}Keechma | ClojureScript micro framework for Reagent{% endblock %}</title>
+  <meta name="description" content="{% block seo_description %}Keechma is a micro framework for Reagent written in ClojureScript. It gives you a set of utilites that make it easier to develop predictable, consistent and deterministic applications.{% endblock %}">
+  <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff"> {% block open_graph %}
+  <meta property="og:title" content="ClojureScript micro framework for Reagent | Keechma news and documentation">
+  <meta property="og:site_name" content="Keechma">
+  <meta property="og:url" content="http://www.keechma.com/">
+  <meta property="og:description" content="Keechma is a micro framework for Reagent written in ClojureScript. It gives you a set of utilites that make it easier to develop predictable, consistent and deterministic applications.">
+  <meta property="fb:app_id" content="">
+  <meta property="og:image" content="http://www.keechma.com/keechma-facebook-logo.jpg" />
+  <meta property="og:type" content="website"> {% endblock %} {% block twitter_card %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@mihaelkonjevic">
+  <meta name="twitter:creator" content="@mihaelkonjevic">
+  <meta name="twitter:title" content="ClojureScript micro framework for Reagent | Keechma news and documentation">
+  <meta name="twitter:description" content="Keechma is a micro framework for Reagent written in ClojureScript. It gives you a set of utilites that make it easier to develop predictable, consistent and deterministic applications.">
+  <meta name="twitter:image" content="http://www.keechma.com/keechma-twitter-logo.jpg"> {% endblock %}
+</head>
+
+<body>
+  <header {% if short_header %}class="landing-header" {% endif %}>
+    <div class="container{% if fluid %}-fluid{% endif %}">
+      <div itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="Keechma">
+        <a itemprop="url" class="pull-left" href="http://www.keechma.com/">
+          <img id="logo" itemprop="logo" src="/keechma-reagent-clojurescript-logo.png" alt="Keechma is a pluggable micro framework for Reagent written in ClojureScript"
+            title="Keechma is a pluggable micro framework for Reagent written in ClojureScript" />
+        </a>
       </div>
-    </header>
-    <div class="content-wrap {% if fluid %}content-wrap--fluid{% endif %}">
-      {% if this._path == '/' %}
-        <div class="landing-wrap">
-          <div class="container">
-            <div class="row">
-              <div class="col-xs-12">
-                <h1>Keechma is pluggable micro framework for Reagent written in ClojureScript.</h1>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <a href="https://clojars.org/keechma" class="clojars-badge-wrap">
-                  <div class="clojars">clojars</div><div class="version">[keechma "0.2.0-SNAPSHOT-11"]</div>
-                </a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      {% endif %}
-      {% block body %}{% endblock %}
+      <ul class="nav-main list-unstyled pull-right">
+        <li>
+          <a {% if this._path=='/' %} class="active" {% endif %}href="{{ '/'|url }}">Home</a>
+        </li>
+        {% for href, title in [ ['/news', 'News'], ['/guides', 'Guides'], ['/annotated', 'Examples'], ['/api', 'API Docs'] ] %}
+        <li>
+          <a {% if this.is_child_of(href) %} class="active" {% endif %}href="{{ href|url }}">{{ title }}</a>
+        </li>
+        {% endfor %}
+        <li>
+          <a href="https://github.com/keechma/keechma">Source Code</a>
+        </li>
+      </ul>
     </div>
-    {% if hide_footer != true %}
-      <footer>
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              Keechma &copy; Mihael Konjevic 2016 &mdash; <a href="http://github.com/keechma">GitHub</a>
-            </div>
+  </header>
+  <div class="content-wrap {% if fluid %}content-wrap--fluid{% endif %}">
+    {% if this._path == '/' %}
+    <div class="landing-wrap">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <h1>Keechma is pluggable micro framework for Reagent written in ClojureScript.</h1>
           </div>
-
         </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <a href="https://clojars.org/keechma" class="clojars-badge-wrap">
+              <div class="clojars">clojars</div>
+              <div class="version">[keechma "0.3.1"]</div>
+            </a>
+          </div>
+        </div>
+      </div>
 
-      </footer>
-    {% endif %}
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    </div>
+    {% endif %} {% block body %}{% endblock %}
+  </div>
+  {% if hide_footer != true %}
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          Keechma &copy; Mihael Konjevic 2016 &mdash;
+          <a href="http://github.com/keechma">GitHub</a>
+        </div>
+      </div>
 
-      ga('create', 'UA-929452-11', 'auto');
-      ga('send', 'pageview');
+    </div>
 
-    </script>
-    <script type="text/javascript" id="cookiebanner" src="http://cookiebanner.eu/js/cookiebanner.min.js"></script>
-  </body>
+  </footer>
+  {% endif %}
+  <script>
+    (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-929452-11', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/clojure.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script type="text/javascript" id="cookiebanner" src="http://cookiebanner.eu/js/cookiebanner.min.js"></script>
+</body>
+
 </html>

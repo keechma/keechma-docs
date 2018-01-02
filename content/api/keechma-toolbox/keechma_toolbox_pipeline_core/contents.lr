@@ -93,8 +93,18 @@ body:
                 </a>
             </li>
             <li class="depth-1">
+                <a href="#var--.3ERunPipelineSideffect">
+                    <div class="inner"><span>-&gt;RunPipelineSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
                 <a href="#var--.3ESendCommandSideffect">
                     <div class="inner"><span>-&gt;SendCommandSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-call-sideffect">
+                    <div class="inner"><span>call-sideffect</span></div>
                 </a>
             </li>
             <li class="depth-1">
@@ -168,6 +178,11 @@ body:
                 </a>
             </li>
             <li class="depth-1">
+                <a href="#var-map-.3ERunPipelineSideffect">
+                    <div class="inner"><span>map-&gt;RunPipelineSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
                 <a href="#var-map-.3ESendCommandSideffect">
                     <div class="inner"><span>map-&gt;SendCommandSideffect</span></div>
                 </a>
@@ -190,6 +205,16 @@ body:
             <li class="depth-1">
                 <a href="#var-RedirectSideffect">
                     <div class="inner"><span>RedirectSideffect</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-run-pipeline.21">
+                    <div class="inner"><span>run-pipeline!</span></div>
+                </a>
+            </li>
+            <li class="depth-1">
+                <a href="#var-RunPipelineSideffect">
+                    <div class="inner"><span>RunPipelineSideffect</span></div>
                 </a>
             </li>
             <li class="depth-1">
@@ -244,9 +269,23 @@ body:
                 <div class="markdown"></div>
             </div>
         </div>
+        <div class="public anchor" id="var--.3ERunPipelineSideffect">
+            <h3>-&gt;RunPipelineSideffect</h3>
+            <div class="usage"><code>(-&gt;RunPipelineSideffect pipeline-key args)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
         <div class="public anchor" id="var--.3ESendCommandSideffect">
             <h3>-&gt;SendCommandSideffect</h3>
             <div class="usage"><code>(-&gt;SendCommandSideffect command payload)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-call-sideffect">
+            <h3>call-sideffect</h3>
+            <div class="usage"><code>(call-sideffect sideffect ctrl app-db-atom)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>
@@ -337,42 +376,49 @@ body:
         </div>
         <div class="public anchor" id="var-map-.3ECommitSideffect">
             <h3>map-&gt;CommitSideffect</h3>
-            <div class="usage"><code>(map-&gt;CommitSideffect G__13772)</code></div>
+            <div class="usage"><code>(map-&gt;CommitSideffect G__14094)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>
         </div>
         <div class="public anchor" id="var-map-.3EDoSideffect">
             <h3>map-&gt;DoSideffect</h3>
-            <div class="usage"><code>(map-&gt;DoSideffect G__13800)</code></div>
+            <div class="usage"><code>(map-&gt;DoSideffect G__14130)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>
         </div>
         <div class="public anchor" id="var-map-.3EError">
             <h3>map-&gt;Error</h3>
-            <div class="usage"><code>(map-&gt;Error G__13765)</code></div>
+            <div class="usage"><code>(map-&gt;Error G__14085)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>
         </div>
         <div class="public anchor" id="var-map-.3EExecuteSideffect">
             <h3>map-&gt;ExecuteSideffect</h3>
-            <div class="usage"><code>(map-&gt;ExecuteSideffect G__13786)</code></div>
+            <div class="usage"><code>(map-&gt;ExecuteSideffect G__14112)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>
         </div>
         <div class="public anchor" id="var-map-.3ERedirectSideffect">
             <h3>map-&gt;RedirectSideffect</h3>
-            <div class="usage"><code>(map-&gt;RedirectSideffect G__13793)</code></div>
+            <div class="usage"><code>(map-&gt;RedirectSideffect G__14121)</code></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-map-.3ERunPipelineSideffect">
+            <h3>map-&gt;RunPipelineSideffect</h3>
+            <div class="usage"><code>(map-&gt;RunPipelineSideffect G__14143)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>
         </div>
         <div class="public anchor" id="var-map-.3ESendCommandSideffect">
             <h3>map-&gt;SendCommandSideffect</h3>
-            <div class="usage"><code>(map-&gt;SendCommandSideffect G__13779)</code></div>
+            <div class="usage"><code>(map-&gt;SendCommandSideffect G__14103)</code></div>
             <div class="doc">
                 <div class="markdown"></div>
             </div>
@@ -404,6 +450,22 @@ body:
         </div>
         <div class="public anchor" id="var-RedirectSideffect">
             <h3>RedirectSideffect</h3>
+            <div class="usage"></div>
+            <div class="doc">
+                <div class="markdown"></div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-run-pipeline.21">
+            <h3>run-pipeline!</h3>
+            <div class="usage"><code>(run-pipeline! pipeline-key)</code><code>(run-pipeline! pipeline-key args)</code></div>
+            <div class="doc">
+                <div class="markdown">
+                    <p>Runs a pipeline in a way that blocks the current pipeline until the current pipeline is done. It behaves same as `execute! but blocks the parent pipeline until it&#x2019;s done. Return value and errors will be ignored by the parent pipeline.</p>
+                </div>
+            </div>
+        </div>
+        <div class="public anchor" id="var-RunPipelineSideffect">
+            <h3>RunPipelineSideffect</h3>
             <div class="usage"></div>
             <div class="doc">
                 <div class="markdown"></div>

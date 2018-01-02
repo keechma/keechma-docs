@@ -16,7 +16,7 @@ body:
 <p>Anything that produces a side effect is implemented in a controller. <strong>Controllers are the only place in the application where you have access to the application&apos;s state atom.</strong></p>
 <p>For each URL you can have multiple controllers running at once. Each controller managing a substate of the application. This way you can split the application logic in small pieces, with clearly defined responsibilites.</p>
 <h2>How controllers work</h2>
-<p>Each controller is implemented as a Clojure record which implements the <code>controller/IController</code> protocol. This protocol defines multiple functions, but right now we&apos;re only interested in the <code>params</code> function.</p>
+<p>Controllers have their behavior defined with multimethods which can be overridden with specific implementations. They have a number of implemented functions but right now we&apos;re only interested in the <code>params</code> function.</p>
 <p>The <code>params</code> function receives the route params and returns a subset of the params needed for the controller to run or <code>nil</code>. The Controller Manager relies on the return value of the <code>params</code> function to decide if the controller should be started, stopped or left alone.</p>
 <p>Whenever the URL changes, the Controller Manager will do the following:</p>
 <ol>
@@ -47,17 +47,17 @@ body:
 <li>When the user goes to the URL <code>/starred/1</code> the params received by the Controller Manager would be <code>{:page &quot;starred&quot; :note-id 1}</code></li>
 </ul>
 <p>Since we need to show the list of notes on both URLs, the <code>NoteList</code> controller should just care about the <code>:page</code> param:</p>
-<pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">defrecord</span></span> NoteList[]
-    controller/IController
-    (<span class="hljs-name">params</span> [_ route-params]
-        (<span class="hljs-name"><span class="hljs-builtin-name">get-in</span></span> route-params [<span class="hljs-symbol">:data</span> <span class="hljs-symbol">:page</span>])))
+<pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">defrecord</span></span> NoteListController [])
+
+(<span class="hljs-name"><span class="hljs-builtin-name">defmethod</span></span> controller/params NoteListController [_ route-params]
+  (<span class="hljs-name"><span class="hljs-builtin-name">get-in</span></span> route-params [<span class="hljs-symbol">:data</span> <span class="hljs-symbol">:page</span>]))
 </code></pre>
 <p>The <code>NoteList</code> controller&apos;s <code>params</code> function ensures that it will be running on each URL that has the <code>:page</code> param.</p>
 <p>The <code>NoteDetails</code> controller should run only when the <code>:note-id</code> param is present:</p>
-<pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">defrecord</span></span> NoteDetails[]
-    controller/IController
-    (<span class="hljs-name">params</span> [_ route-params]
-        (<span class="hljs-name"><span class="hljs-builtin-name">get-in</span></span> route-params [<span class="hljs-symbol">:data</span> <span class="hljs-symbol">:note-id</span>])))
+<pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">defrecord</span></span> NoteDetailsController [])
+
+(<span class="hljs-name"><span class="hljs-builtin-name">defmethod</span></span> controller/params NoteDetailsController [_ route-params]
+  (<span class="hljs-name"><span class="hljs-builtin-name">get-in</span></span> route-params [<span class="hljs-symbol">:data</span> <span class="hljs-symbol">:note-id</span>]))
 </code></pre>
 <p>When the user is on the <code>/starred</code> page the <code>NoteDetails</code> controller will not be running. It will only run on the <code>/starred/1</code> URL.</p>
 <div class="diagram"><img src="/controller_manager.svg" alt="Controllers" title="Controllers"></div>
@@ -73,10 +73,10 @@ body:
 <p>Besides data loading, controllers have another task: they react to user commands.</p>
 <p>Whenever the user performs an action - clicks on a button or submits a form - that action is sent to the Controller Manager. Based on the <code>:topic</code>, this action will be routed to the appropriate controller.</p>
 <p>Each controller can implement the <code>handler</code> function which receives the <code>in-chan</code> as an argument. User commands will be placed on that channel and the controller reacts accordingly.</p>
-<pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">defrecord</span></span> UserController []
-    controller/IController
-    (<span class="hljs-name">handler</span> [_ app-db in-chan __]))
-    <span class="hljs-comment">;; Commands will be placed on the `in-chan` which is passed into the handler function</span>
+<pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">defrecord</span></span> UserController [])
+
+(<span class="hljs-name"><span class="hljs-builtin-name">defmethod</span></span> controller/handler UserController [_ app-db in-chan _])
+<span class="hljs-comment">;; Commands will be placed on the `in-chan` which is passed into the handler function</span>
 </code></pre>
 <p>UI components don&apos;t define the <code>:topic</code> at the sending time, it is globally set for each UI component.</p>
 <pre><code class="language-clojure hljs">(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> renderer [ctx]

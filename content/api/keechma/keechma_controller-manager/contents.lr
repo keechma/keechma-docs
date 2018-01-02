@@ -186,16 +186,18 @@ body:
         </div>
         <div class="public anchor" id="var-start">
             <h3>start</h3>
-            <div class="usage"><code>(start route-chan commands-chan app-db-atom controllers reporter)</code></div>
+            <div class="usage"><code>(start route-chan route-processor commands-chan app-db-atom controllers reporter)</code></div>
             <div class="doc">
                 <div class="markdown">
                     <p>Starts the controller manager. Controller manager is the central part of the application that manages the lifecycle of the controllers and routes the messages sent to them.</p>
                     <p><code>start</code> function receives the following parameters:</p>
                     <ul>
                         <li><code>route-chan</code> - Route changes will communicated through this channel</li>
+                        <li><code>route-processor</code> - Function that will be called on every route change. It can be used to process the route before it&#x2019;s written into app-db</li>
                         <li><code>commands-chan</code> - User (UI) commands will be sent through this channel</li>
                         <li><code>app-db</code> - application state atom</li>
                         <li><code>controllers</code> map of controllers registered for the app</li>
+                        <li><code>reporter</code> - internal reporter function</li>
                     </ul>
                     <p>Each time when the new route data comes through the <code>route-chan</code> controller manager will do the following:</p>
                     <ul>
